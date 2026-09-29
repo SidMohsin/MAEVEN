@@ -105,9 +105,11 @@
   --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
+/* Starts at 0.01, not 0: visually identical, but lets the browser count the hero text as painted
+   immediately (fully transparent elements are ignored for Largest Contentful Paint). */
 @keyframes rise {
   from {
-    opacity: 0;
+    opacity: 0.01;
     transform: translate3d(0, 14px, 0);
   }
   to {

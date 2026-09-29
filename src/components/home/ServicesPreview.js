@@ -52,7 +52,7 @@ export default function ServicesPreview({ pillars, show = 3, tone = 'paper' }) {
                     .slice(0, show)
                     .map((t) => t.name)
                     .join(', ')}
-                  {more > 0 && <span className="text-ink/45"> and {more} more</span>}
+                  {more > 0 && <span className="text-ink/60"> and {more} more</span>}
                 </p>
                 <span className="text-olive mt-8 inline-flex items-center gap-2 text-sm font-semibold">
                   Explore

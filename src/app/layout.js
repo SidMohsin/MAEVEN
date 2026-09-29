@@ -14,7 +14,18 @@ export const metadata = {
   title: { default: site.name, template: `%s | ${site.name}` },
   // TODO: replace with client-approved positioning line (site.description is null until supplied)
   ...(site.description ? { description: site.description } : {}),
-  openGraph: { siteName: site.name, type: 'website' },
+  openGraph: { siteName: site.name, type: 'website', locale: 'en' },
+  twitter: { card: 'summary_large_image' },
+};
+
+// Organization structured data: only confirmed facts (name, site, logo). No address, phone or
+// social profiles until the client supplies them.
+const orgJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: site.name,
+  url: site.url,
+  logo: `${site.url}/brand/maeven-logo.png`,
 };
 
 export const viewport = { themeColor: '#0a0a0a' };
@@ -45,6 +56,10 @@ export default function RootLayout({ children }) {
           {children}
         </main>
         <Footer />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
+        />
         <RevealObserver />
         <ScrollManager />
       </body>
