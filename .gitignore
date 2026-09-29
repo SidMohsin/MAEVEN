@@ -1,0 +1,18 @@
+Source_Materials/Maeven-assets.zip
+# dependencies / build
+node_modules/
+.next/
+out/
+
+# local
+.env*
+!.env.example
+.DS_Store
+*.log
+
+# raw client assets never go in git
+Source_Materials/*.zip
+asset-raw/
+
+# curated-but-uncleared client imagery (deployed only after permission is confirmed)
+public/_pending/
