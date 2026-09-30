@@ -2,6 +2,7 @@ Source_Materials/Maeven-assets.zip
 # dependencies / build
 node_modules/
 .next/
+.next-test/
 out/
 
 # local

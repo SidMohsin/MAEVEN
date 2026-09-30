@@ -11,11 +11,10 @@ import ImageStrip from '@/components/services/ImageStrip';
  * Reveal rhythm follows the layout: each side slides in from its own edge, and the lead alternates.
  *   image-left rows : image first, text follows
  *   image-right rows: text first, image follows
- * Topics without an image get a shorter placeholder tile so the page stays a sensible length.
+ * Images keep their own proportions at every screen size (no cropping).
  */
 export default function TopicRow({ topic, pillar, index, tone }) {
   const imageLeft = index % 2 === 0;
-  const hasImage = Boolean(topic.image);
   const number = `${pillar.number}.${String(index + 1).padStart(2, '0')}`;
 
   const imageDelay = imageLeft ? 0 : 170;
@@ -29,7 +28,8 @@ export default function TopicRow({ topic, pillar, index, tone }) {
             id={topic.image}
             need={`${topic.name} image`}
             mark={number}
-            aspect={hasImage ? 'aspect-[4/3] md:aspect-[4/5]' : 'aspect-[16/9] md:aspect-[16/10]'}
+            aspect="natural"
+            fallbackRatio={16 / 10}
             sizes="(min-width: 768px) 40vw, 100vw"
             reveal={imageLeft ? 'left' : 'right'}
             delay={imageDelay}

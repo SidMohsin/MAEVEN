@@ -8,7 +8,9 @@ import { isVisible } from '@/lib/assets';
  *  - uncleared asset          -> labelled placeholder (unless NEXT_PUBLIC_SHOW_PENDING_ASSETS=1, local preview)
  *  - no asset (id is null)    -> labelled "asset required" placeholder
  *
- * `aspect`  Tailwind aspect class, e.g. "aspect-[4/5]".
+ * `aspect`  Tailwind aspect class, e.g. "aspect-[4/5]", or "natural" to use the asset's own
+ *           proportions (no cropping at any screen size). Placeholders in natural mode use
+ *           `fallbackRatio` (width / height).
  * `sizes`   feeds next/image srcset.
  * `reveal`  optional scroll reveal: 'left' | 'right' | 'up' | 'fade' (see globals.css). `delay` is in ms.
  * `position` object-position class for cropping, e.g. 'object-left'. An asset's own `focus`
@@ -26,14 +28,26 @@ export default function MediaImage({
   delay = 0,
   mark,
   position = 'object-center',
+  fallbackRatio = 4 / 5,
 }) {
   const asset = id ? getAsset(id) : null;
   const visible = isVisible(asset);
-  const motion = reveal ? { 'data-reveal': reveal, style: { '--d': `${delay}ms` } } : {};
+  const natural = aspect === 'natural';
+  const ratio = natural ? (asset ? asset.width / asset.height : fallbackRatio) : null;
+  const frameClass = natural ? '' : aspect;
+  const frameStyle = {
+    ...(natural ? { aspectRatio: String(ratio) } : {}),
+    ...(reveal ? { '--d': `${delay}ms` } : {}),
+  };
+  const motion = reveal ? { 'data-reveal': reveal } : {};
 
   if (visible) {
     return (
-      <div className={`bg-surface-2 relative overflow-hidden ${aspect} ${className}`} {...motion}>
+      <div
+        className={`bg-surface-2 relative overflow-hidden ${frameClass} ${className}`}
+        style={frameStyle}
+        {...motion}
+      >
         <div data-reveal-scale className="absolute inset-0">
           <Image
             src={asset.src}
@@ -54,7 +68,8 @@ export default function MediaImage({
     <div
       role="img"
       aria-label={`${need}: ${status.toLowerCase()}`}
-      className={`from-surface-2 to-ink relative isolate overflow-hidden bg-gradient-to-br ${aspect} ${className}`}
+      className={`from-surface-2 to-ink relative isolate overflow-hidden bg-gradient-to-br ${frameClass} ${className}`}
+      style={frameStyle}
       {...motion}
     >
       {/* Inset hairline frame with olive corner ticks */}

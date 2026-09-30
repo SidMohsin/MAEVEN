@@ -2,37 +2,18 @@ import Link from 'next/link';
 import Section from '@/components/ui/Section';
 import Eyebrow from '@/components/ui/Eyebrow';
 import Icon from '@/components/ui/Icon';
-import MediaImage from '@/components/ui/MediaImage';
+import JustifiedRows from '@/components/ui/JustifiedRows';
 
 /**
- * Image-led production story: an asymmetric mosaic of real MAEVEN stills with no captions, claims or
- * service labels. Takes five asset ids (data/home.js):
+ * Image-led production story: real MAEVEN stills with no captions, claims or service labels.
+ * Every image keeps its own proportions at every screen size (justified rows, no cropping).
+ * Takes five asset ids (data/home.js):
  *
- *   desktop  row 1: [ wide ........ 8 ][ tall .. 4 ]
- *            row 2: [ 4 ][ 4 ][ 4 ]
- *   mobile   first image full width, then two per row.
+ *   desktop  [ wide, tall ]  [ three ]
+ *   phone    [ wide ]  [ tall, second ]  [ fourth, fifth ]
  */
-const SLOTS = [
-  {
-    col: 'col-span-2 md:col-span-8',
-    aspect: 'aspect-[16/10]',
-    sizes: '(min-width: 768px) 66vw, 100vw',
-  },
-  { col: 'md:col-span-4', aspect: 'aspect-[4/5]', sizes: '(min-width: 768px) 33vw, 50vw' },
-  { col: 'md:col-span-4', aspect: 'aspect-[4/5]', sizes: '(min-width: 768px) 33vw, 50vw' },
-  { col: 'md:col-span-4', aspect: 'aspect-[4/5]', sizes: '(min-width: 768px) 33vw, 50vw' },
-  {
-    col: 'col-span-2 md:col-span-4',
-    aspect: 'aspect-[16/10]',
-    sizes: '(min-width: 768px) 33vw, 100vw',
-  },
-];
-
 export default function WorkMosaic({ images, tone }) {
-  const rows = [
-    { height: 'md:h-[36rem]', ids: images.slice(0, 2), offset: 0 },
-    { height: 'md:h-[28rem]', ids: images.slice(2, 5), offset: 2 },
-  ];
+  const [a, b, c, d, e] = images;
 
   return (
     <Section tone={tone} className="md:!py-32">
@@ -56,31 +37,15 @@ export default function WorkMosaic({ images, tone }) {
         </Link>
       </div>
 
-      <div className="mt-14 space-y-3 md:mt-20 md:space-y-4">
-        {rows.map((row) => (
-          <div
-            key={row.offset}
-            className={`grid grid-cols-2 gap-3 md:grid-cols-12 md:gap-4 ${row.height}`}
-          >
-            {row.ids.map((id, j) => {
-              const i = row.offset + j;
-              const slot = SLOTS[i];
-              return (
-                <div key={id} className={`${slot.col} md:h-full`}>
-                  <MediaImage
-                    id={id}
-                    need="Production still"
-                    aspect={`${slot.aspect} md:aspect-auto md:h-full`}
-                    sizes={slot.sizes}
-                    reveal="up"
-                    delay={j * 110}
-                  />
-                </div>
-              );
-            })}
-          </div>
-        ))}
-      </div>
+      <JustifiedRows
+        className="mt-14 md:mt-20"
+        need="Production still"
+        rows={[
+          [a, b],
+          [c, d, e],
+        ]}
+        mobileRows={[[a], [b, c], [d, e]]}
+      />
     </Section>
   );
 }

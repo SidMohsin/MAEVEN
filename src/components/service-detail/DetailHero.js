@@ -38,9 +38,9 @@ export default function DetailHero({ topic, pillar, crumbs }) {
         id={heroId}
         need={`${topic.name} hero image`}
         mark={pillar.number}
-        aspect="aspect-[16/10] md:aspect-[5/2]"
+        aspect="natural"
+        fallbackRatio={2.5}
         sizes="(min-width: 1280px) 1184px, 100vw"
-        position="object-[15%_50%] md:object-center"
         priority
         reveal="fade"
         delay={200}

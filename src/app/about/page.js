@@ -1,6 +1,6 @@
 import Section from '@/components/ui/Section';
 import Eyebrow from '@/components/ui/Eyebrow';
-import MediaImage from '@/components/ui/MediaImage';
+import JustifiedRows from '@/components/ui/JustifiedRows';
 import Placeholder from '@/components/ui/Placeholder';
 import ContinueExploring from '@/components/ui/ContinueExploring';
 import { about } from '@/data/about';
@@ -45,30 +45,14 @@ export default function AboutPage() {
         </p>
       </Section>
 
-      {/* Visuals */}
+      {/* Visuals: true proportions at every size (one row on desktop, stacked on phones) */}
       <Section className="!pt-0 !pb-20 md:!pb-28">
-        <div className="grid grid-cols-12 gap-3 md:gap-4">
-          <div className="col-span-12 md:col-span-8">
-            <MediaImage
-              id={wide}
-              need="Studio image"
-              aspect="aspect-[4/3] md:aspect-auto md:h-[34rem]"
-              sizes="(min-width: 768px) 66vw, 100vw"
-              priority
-              reveal="up"
-            />
-          </div>
-          <div className="col-span-12 md:col-span-4">
-            <MediaImage
-              id={square}
-              need="Studio image"
-              aspect="aspect-square md:aspect-auto md:h-[34rem]"
-              sizes="(min-width: 768px) 33vw, 100vw"
-              reveal="up"
-              delay={120}
-            />
-          </div>
-        </div>
+        <JustifiedRows
+          need="Studio image"
+          rows={[[wide, square]]}
+          mobileRows={[[wide], [square]]}
+          priority
+        />
       </Section>
 
       {/* Our story */}
