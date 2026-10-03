@@ -59,7 +59,7 @@ export default function Header() {
             <Link
               href={cta.href}
               aria-current={isActive(pathname, cta.href) ? 'page' : undefined}
-              className="bg-olive hover:bg-olive-hi hover:text-ink ml-3 px-5 py-2.5 text-sm font-medium text-white transition-colors duration-200"
+              className="sweep bg-olive hover:text-ink ml-3 px-5 py-2.5 text-sm font-medium text-white transition-colors duration-500"
             >
               {cta.label}
             </Link>

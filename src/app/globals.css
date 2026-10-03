@@ -92,17 +92,22 @@
 }
 
 /*
- * Motion system. Restrained by design: opacity + transform only, short durations, one easing.
+ * Motion system. One vocabulary, one easing family: rise, wipe, draw, stagger, lines (masked
+ * words), pop (informational pop-ins), crossfade/drift (hero, rail). Transform, opacity and
+ * clip-path only; no parallax, no scroll-jacking.
  *
- * - Hero uses a plain CSS entrance (.rise / .draw-line): no JS needed.
- * - Everything else uses [data-reveal]: hidden ONLY when the <html> element has the `js` class
- *   (set by an inline script before first paint), so content is always visible without JS.
+ * - Above-the-fold hero text uses plain CSS animations (.rise, .lines-rise): no JS needed.
+ * - Everything else uses [data-reveal="…"]: hidden ONLY when <html> has the `js` class (set by an
+ *   inline script before first paint), so content is always visible without JS.
  * - RevealObserver adds `.is-in` when an element enters the viewport.
- * - Horizontal slides apply from `md` up; on mobile (stacked layout) they become vertical.
- * - prefers-reduced-motion disables all of it.
+ * - Horizontal slides apply from `md` up; on mobile they become vertical rises.
+ * - prefers-reduced-motion: everything is shown immediately, continuous motion stops.
  */
 :root {
   --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1); /* reveals: fast start, long soft settle */
+  --ease-pop: cubic-bezier(0.34, 1.3, 0.64, 1); /* informational pop-ins: tiny overshoot */
+  --reveal-dur: 1000ms;
 }
 
 /* Starts at 0.01, not 0: visually identical, but lets the browser count the hero text as painted
@@ -136,6 +141,54 @@
   }
 }
 
+/* Masked word rise for above-the-fold headings. Starts at 96%, not 100%, so a sliver is painted
+   at once and the heading still counts for Largest Contentful Paint. */
+@keyframes word-rise {
+  from {
+    transform: translate3d(0, 96%, 0);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 12px, 0) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Hero stills: slow zoom-out with a slight pan (direction set per slide via --kx / --ky). */
+@keyframes kenburns {
+  from {
+    transform: scale(1.14) translate3d(var(--kx, 0%), var(--ky, 0%), 0);
+  }
+  to {
+    transform: scale(1.02) translate3d(0, 0, 0);
+  }
+}
+
+@keyframes progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Work rail: the track holds the set twice; moving by -50% loops seamlessly. */
+@keyframes rail-drift {
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
 @layer utilities {
   .rise {
     animation: rise 800ms var(--ease-out) both;
@@ -158,26 +211,57 @@
   }
 }
 
+@layer utilities {
+  /* Heading split into masked words (see SplitText). --w = word index for the stagger. */
+  .split-word {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: bottom;
+    /* room for ascenders/descenders inside the mask, without shifting layout */
+    padding-block: 0.1em 0.16em;
+    margin-block: -0.1em -0.16em;
+  }
+  .split-word > span {
+    display: inline-block;
+  }
+  .lines-rise .split-word > span {
+    animation: word-rise 1100ms var(--ease-expo) both;
+    animation-delay: calc(var(--d, 0ms) + min(var(--w, 0), 14) * 55ms);
+  }
+  .pop-in {
+    animation: pop-in 800ms var(--ease-pop) both;
+    animation-delay: var(--d, 0ms);
+  }
+}
+
 @layer components {
+  /* ---- Scroll reveals -------------------------------------------------------------------- */
   .js [data-reveal] {
     opacity: 0;
     transition:
-      opacity 800ms var(--ease-out) var(--d, 0ms),
-      transform 800ms var(--ease-out) var(--d, 0ms);
+      opacity var(--reveal-dur) var(--ease-expo) var(--d, 0ms),
+      transform var(--reveal-dur) var(--ease-expo) var(--d, 0ms);
     will-change: opacity, transform;
   }
   .js [data-reveal='up'],
   .js [data-reveal='left'],
   .js [data-reveal='right'] {
-    transform: translate3d(0, 18px, 0);
+    transform: translate3d(0, 48px, 0);
   }
   @media (min-width: 48rem) {
     .js [data-reveal='left'] {
-      transform: translate3d(-24px, 0, 0);
+      transform: translate3d(-56px, 0, 0);
     }
     .js [data-reveal='right'] {
-      transform: translate3d(24px, 0, 0);
+      transform: translate3d(56px, 0, 0);
     }
+  }
+  /* Informational pop-ins: small rise + scale with a tiny overshoot. */
+  .js [data-reveal='pop'] {
+    transform: translate3d(0, 16px, 0) scale(0.94);
+    transition:
+      opacity 700ms var(--ease-out) var(--d, 0ms),
+      transform 800ms var(--ease-pop) var(--d, 0ms);
   }
   .js [data-reveal].is-in {
     opacity: 1;
@@ -185,27 +269,193 @@
     will-change: auto;
   }
 
-  /* Image frames: the picture settles from a slight zoom while the frame fades/slides in. */
+  /* Image wipe: the picture is uncovered bottom-to-top while it settles from 110%. The clip sits
+     on an inner layer ([data-wipe]): clipping the observed frame itself to zero would stop the
+     IntersectionObserver from ever seeing it. */
+  .js [data-reveal='wipe'] {
+    opacity: 1;
+    transform: none;
+  }
+  .js [data-reveal='wipe'] > [data-wipe] {
+    clip-path: inset(100% 0 0 0);
+    transition: clip-path 1200ms var(--ease-expo) var(--d, 0ms);
+  }
+  .js [data-reveal='wipe'].is-in > [data-wipe] {
+    clip-path: inset(0 0 0 0);
+  }
   .js [data-reveal-scale] {
-    transform: scale(1.06);
-    transition: transform 1400ms var(--ease-out) var(--d, 0ms);
+    transform: scale(1.1);
+    transition: transform 1700ms var(--ease-expo) var(--d, 0ms);
   }
   .js .is-in [data-reveal-scale] {
     transform: none;
+  }
+
+  /* Hairline / rule that draws in from the left. */
+  .js [data-reveal='draw'] {
+    opacity: 1;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 1400ms var(--ease-expo) var(--d, 0ms);
+  }
+
+  /* Stagger: the container stays put; its direct children rise one after another (~80 ms). */
+  .js [data-reveal='stagger'],
+  .js [data-reveal='lines'] {
+    opacity: 1;
+    transform: none;
+  }
+  .js [data-reveal='stagger'] > * {
+    opacity: 0;
+    transform: translate3d(0, 40px, 0);
+    transition:
+      opacity 900ms var(--ease-expo) calc(var(--d, 0ms) + var(--i, 0) * 80ms),
+      transform 900ms var(--ease-expo) calc(var(--d, 0ms) + var(--i, 0) * 80ms);
+  }
+  .js [data-reveal='stagger'].is-in > * {
+    opacity: 1;
+    transform: none;
+  }
+  [data-reveal='stagger'] > :nth-child(2) {
+    --i: 1;
+  }
+  [data-reveal='stagger'] > :nth-child(3) {
+    --i: 2;
+  }
+  [data-reveal='stagger'] > :nth-child(4) {
+    --i: 3;
+  }
+  [data-reveal='stagger'] > :nth-child(5) {
+    --i: 4;
+  }
+  [data-reveal='stagger'] > :nth-child(6) {
+    --i: 5;
+  }
+  [data-reveal='stagger'] > :nth-child(7) {
+    --i: 6;
+  }
+  [data-reveal='stagger'] > :nth-child(8) {
+    --i: 7;
+  }
+  [data-reveal='stagger'] > :nth-child(9) {
+    --i: 8;
+  }
+  [data-reveal='stagger'] > :nth-child(n + 10) {
+    --i: 9;
+  }
+
+  /* Lines: masked words rise from behind their mask (see SplitText). */
+  .js [data-reveal='lines'] .split-word > span {
+    transform: translate3d(0, 110%, 0);
+    transition: transform 1100ms var(--ease-expo) calc(var(--d, 0ms) + min(var(--w, 0), 14) * 55ms);
+  }
+  .js [data-reveal='lines'].is-in .split-word > span {
+    transform: none;
+  }
+
+  /* ---- Hover system ---------------------------------------------------------------------- */
+  /* Fill sweep for buttons: a layer slides in from the left behind the label. */
+  .sweep {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+  }
+  .sweep::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--sweep, var(--color-olive-hi));
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 600ms var(--ease-expo);
+  }
+  .sweep:hover::before,
+  .sweep:focus-visible::before {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+  /* Card lift */
+  .lift {
+    transition:
+      transform 600ms var(--ease-expo),
+      border-color 300ms var(--ease-out),
+      background-color 300ms var(--ease-out);
+  }
+  .lift:hover {
+    transform: translate3d(0, -4px, 0);
+  }
+
+  /* ---- Hero slideshow -------------------------------------------------------------------- */
+  .hero-slide {
+    opacity: 0;
+    transition: opacity 1800ms var(--ease-out);
+  }
+  .hero-slide[data-state='active'] {
+    opacity: 1;
+  }
+  .hero-slide[data-state='active'] img,
+  .hero-slide[data-state='prev'] img {
+    animation: kenburns 9000ms linear both;
+  }
+  [data-paused] .hero-slide img,
+  [data-paused] .hero-progress {
+    animation-play-state: paused !important;
+  }
+  .hero-progress {
+    transform-origin: left;
+    animation: progress var(--slide-ms, 7000ms) linear both;
+  }
+
+  /* ---- Work rail ------------------------------------------------------------------------- */
+  .rail {
+    mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+  }
+  .rail-track {
+    display: flex;
+    width: max-content;
+    animation: rail-drift var(--rail-dur, 80s) linear infinite;
+  }
+  .rail:hover .rail-track,
+  .rail:focus-within .rail-track,
+  .rail[data-paused] .rail-track {
+    animation-play-state: paused;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .rise,
   .settle,
-  .draw-line {
-    animation: none;
+  .draw-line,
+  .pop-in,
+  .lines-rise .split-word > span,
+  .hero-slide img,
+  .hero-progress {
+    animation: none !important;
   }
   .js [data-reveal],
-  .js [data-reveal-scale] {
+  .js [data-reveal-scale],
+  .js [data-reveal='wipe'] > [data-wipe],
+  .js [data-reveal='stagger'] > *,
+  .js [data-reveal='lines'] .split-word > span {
     opacity: 1 !important;
     transform: none !important;
+    clip-path: none !important;
     transition: none !important;
+  }
+  /* Rail becomes a still, swipeable row. */
+  .rail {
+    mask-image: none;
+    overflow-x: auto;
+  }
+  .rail-track {
+    animation: none !important;
+  }
+  .rail-track > [aria-hidden='true'] {
+    display: none;
+  }
+  .lift:hover {
+    transform: none;
   }
 }
 

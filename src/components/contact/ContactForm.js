@@ -206,7 +206,7 @@ export default function ContactForm({ pillars }) {
       <button
         type="submit"
         disabled={pending}
-        className="group bg-olive hover:bg-olive-hi hover:text-ink inline-flex w-full items-center justify-center gap-3 px-8 py-4 text-base font-medium text-white transition-colors duration-200 disabled:cursor-wait disabled:opacity-60 sm:w-auto"
+        className="sweep group bg-olive hover:text-ink inline-flex w-full items-center justify-center gap-3 px-8 py-4 text-base font-medium text-white transition-colors duration-200 disabled:cursor-wait disabled:opacity-60 sm:w-auto"
       >
         {pending ? 'Sending…' : 'Send inquiry'}
         {!pending && (

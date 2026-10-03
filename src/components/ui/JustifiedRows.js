@@ -10,13 +10,15 @@ import { getAsset } from '@/data/assets';
  * `mobileRows`  optional regrouping for phones (fewer images per row), e.g. [['a'], ['b', 'c']]
  *               When omitted, `rows` is used at every size.
  * `fallbackRatio` proportions for missing assets (placeholders).
+ * `reveal`      reveal per image (default: wipe, staggered along the row).
+ * `caption`     optional (id) => { label, text } hover information for each image.
  */
 const ratioOf = (id, fallback) => {
   const a = id ? getAsset(id) : null;
   return a ? a.width / a.height : fallback;
 };
 
-function Rows({ rows, className = '', need, fallbackRatio, reveal, priority }) {
+function Rows({ rows, className = '', need, fallbackRatio, reveal, priority, caption }) {
   return (
     <div className={`space-y-3 md:space-y-4 ${className}`}>
       {rows.map((row, ri) => {
@@ -33,8 +35,9 @@ function Rows({ rows, className = '', need, fallbackRatio, reveal, priority }) {
                   fallbackRatio={ratios[i]}
                   sizes={`${Math.ceil((ratios[i] / sum) * 100)}vw`}
                   reveal={reveal}
-                  delay={i * 110}
+                  delay={i * 120}
                   priority={priority && ri === 0}
+                  caption={caption && id ? caption(id) : undefined}
                 />
               </div>
             ))}
@@ -50,11 +53,12 @@ export default function JustifiedRows({
   mobileRows,
   need = 'Image',
   fallbackRatio = 4 / 5,
-  reveal = 'up',
+  reveal = 'wipe',
   priority = false,
+  caption,
   className = '',
 }) {
-  const shared = { need, fallbackRatio, reveal, priority };
+  const shared = { need, fallbackRatio, reveal, priority, caption };
   if (!mobileRows) return <Rows rows={rows} className={className} {...shared} />;
   return (
     <div className={className}>

@@ -4,11 +4,13 @@ import Icon from '@/components/ui/Icon';
 import MediaImage from '@/components/ui/MediaImage';
 import ServiceList from '@/components/services/ServiceList';
 import ImageStrip from '@/components/services/ImageStrip';
+import SplitText from '@/components/ui/SplitText';
 
 /**
  * One topic on the Services page: image + text, alternating sides.
  *
- * Reveal rhythm follows the layout: each side slides in from its own edge, and the lead alternates.
+ * Reveal rhythm: the image wipes in; the number rises, the name rises word by word, the description
+ * follows and the service items stagger in. The lead alternates with the layout:
  *   image-left rows : image first, text follows
  *   image-right rows: text first, image follows
  * Images keep their own proportions at every screen size (no cropping).
@@ -17,8 +19,8 @@ export default function TopicRow({ topic, pillar, index, tone }) {
   const imageLeft = index % 2 === 0;
   const number = `${pillar.number}.${String(index + 1).padStart(2, '0')}`;
 
-  const imageDelay = imageLeft ? 0 : 170;
-  const textDelay = imageLeft ? 170 : 0;
+  const imageDelay = imageLeft ? 0 : 250;
+  const t = imageLeft ? 200 : 0; // text lead-in
 
   return (
     <Section tone={tone} id={topic.slug} className="!py-14 md:!py-24">
@@ -31,44 +33,52 @@ export default function TopicRow({ topic, pillar, index, tone }) {
             aspect="natural"
             fallbackRatio={16 / 10}
             sizes="(min-width: 768px) 40vw, 100vw"
-            reveal={imageLeft ? 'left' : 'right'}
+            reveal="wipe"
             delay={imageDelay}
           />
         </div>
 
-        <div
-          className="min-w-0 md:col-span-7"
-          data-reveal={imageLeft ? 'right' : 'left'}
-          style={{ '--d': `${textDelay}ms` }}
-        >
-          <p className="text-olive-hi flex items-center gap-3 text-xs font-medium tracking-[0.22em] uppercase">
+        <div className="min-w-0 md:col-span-7">
+          <p
+            data-reveal="up"
+            style={{ '--d': `${t}ms` }}
+            className="text-olive-hi flex items-center gap-3 text-xs font-medium tracking-[0.22em] uppercase"
+          >
             <span aria-hidden="true" className="bg-olive h-px w-8" />
             {number}
           </p>
-          <h3 className="mt-5 text-3xl md:text-4xl">{topic.name}</h3>
-          <p className="text-paper/80 mt-5 max-w-2xl text-base leading-relaxed">
+          <SplitText as="h3" delay={t + 80} className="mt-5 text-3xl md:text-4xl">
+            {topic.name}
+          </SplitText>
+          <p
+            data-reveal="up"
+            style={{ '--d': `${t + 250}ms` }}
+            className="text-paper/80 mt-5 max-w-2xl text-base leading-relaxed"
+          >
             {topic.description}
           </p>
 
           <div className="mt-8">
-            <ServiceList topic={topic} />
+            <ServiceList topic={topic} delay={t + 380} />
           </div>
 
           {topic.detailPage && (
             <Link
               href={`/services/${topic.slug}`}
-              className="group text-olive-hi mt-8 inline-flex items-center gap-2 text-sm font-medium transition-colors duration-200 hover:text-white"
+              data-reveal="up"
+              style={{ '--d': `${t + 500}ms` }}
+              className="group text-olive-hi mt-8 inline-flex items-center gap-2 text-sm font-medium transition-colors duration-300 hover:text-white"
             >
               <span className="relative">
                 Explore {topic.name}
                 <span
                   aria-hidden="true"
-                  className="bg-olive-hi absolute inset-x-0 -bottom-1 h-px origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100"
+                  className="bg-olive-hi absolute inset-x-0 -bottom-1 h-px origin-left scale-x-0 transition-transform duration-500 ease-[var(--ease-expo)] group-hover:scale-x-100"
                 />
               </span>
               <Icon
                 name="arrow"
-                className="size-4 transition-transform duration-200 group-hover:translate-x-1"
+                className="size-4 transition-transform duration-500 ease-[var(--ease-expo)] group-hover:translate-x-1"
               />
             </Link>
           )}

@@ -37,7 +37,7 @@ export default function HomePage() {
       <IntroBand intro={home.intro} tone="ink" />
       <StudioBand studio={home.studio} tone="surface" />
       <ServicesPreview pillars={getPillars()} show={home.servicesPreview.topics} tone="paper" />
-      <WorkMosaic images={home.work.images} tone="ink" />
+      <WorkMosaic items={home.work.items} tone="ink" />
       <ApproachBand steps={home.approach} tone="surface" />
       <HomeCta tone="ink" />
       <ContinueExploring

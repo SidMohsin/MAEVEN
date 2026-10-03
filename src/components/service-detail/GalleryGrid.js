@@ -26,6 +26,7 @@ export default function GalleryGrid({ ids = [], topicName, tone }) {
       <JustifiedRows
         className="mt-10"
         need={`${topicName} image`}
+        caption={(id) => ({ label: topicName, text: getAsset(id)?.alt })}
         rows={[...chunk(tall, 4), ...wide.map((id) => [id])]}
         mobileRows={[...chunk(tall, 2), ...wide.map((id) => [id])]}
       />

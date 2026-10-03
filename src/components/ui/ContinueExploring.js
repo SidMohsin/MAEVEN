@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Section from '@/components/ui/Section';
 import Icon from '@/components/ui/Icon';
+import SplitText from '@/components/ui/SplitText';
 
 /**
  * "Continue exploring". `items`: { title, text, href, cta }.
@@ -12,25 +13,26 @@ export default function ContinueExploring({ items, tone = 'surface', variant = '
     return (
       <Section tone={tone} className="md:!py-32">
         <div className="grid gap-12 md:grid-cols-12 md:gap-14">
-          <div className="md:col-span-4" data-reveal="up">
-            <span aria-hidden="true" className="bg-olive mb-8 block h-px w-16" />
-            <h2 className="text-5xl md:text-7xl">Continue exploring</h2>
+          <div className="md:col-span-4">
+            <span aria-hidden="true" data-reveal="draw" className="bg-olive mb-8 block h-px w-16" />
+            <SplitText as="h2" className="text-5xl md:text-7xl">
+              Continue exploring
+            </SplitText>
           </div>
 
-          <ul className="border-line border-t md:col-span-8">
-            {items.map((item, i) => (
-              <li
-                key={item.href}
-                data-reveal="up"
-                style={{ '--d': `${i * 100}ms` }}
-                className="border-line border-b"
-              >
+          <ul
+            data-reveal="stagger"
+            style={{ '--d': '200ms' }}
+            className="border-line border-t md:col-span-8"
+          >
+            {items.map((item) => (
+              <li key={item.href} className="border-line border-b">
                 <Link
                   href={item.href}
                   className="group hover:bg-surface-2/60 -mx-3 grid grid-cols-[1fr_auto] items-center gap-x-6 px-3 py-8 transition-colors duration-300 md:py-11"
                 >
                   <span>
-                    <span className="font-heading group-hover:text-olive-hi block text-4xl text-white transition-colors duration-300 md:text-6xl">
+                    <span className="font-heading group-hover:text-olive-hi block text-4xl text-white transition-all duration-500 ease-[var(--ease-expo)] group-hover:translate-x-2 md:text-6xl">
                       {item.title}
                     </span>
                     <span className="text-muted mt-3 block max-w-md text-sm leading-relaxed">
@@ -41,7 +43,7 @@ export default function ContinueExploring({ items, tone = 'surface', variant = '
                     <span className="hidden md:inline">{item.cta}</span>
                     <Icon
                       name="arrow"
-                      className="size-7 transition-transform duration-300 group-hover:translate-x-1.5"
+                      className="size-7 transition-transform duration-500 ease-[var(--ease-expo)] group-hover:translate-x-2"
                     />
                   </span>
                 </Link>
@@ -67,7 +69,7 @@ export default function ContinueExploring({ items, tone = 'surface', variant = '
           <li key={item.href} data-reveal="up" style={{ '--d': `${120 + i * 90}ms` }}>
             <Link
               href={item.href}
-              className="group border-line bg-surface-2 hover:border-olive-hi flex h-full flex-col border p-8 transition-colors duration-300"
+              className="lift group border-line bg-surface-2 hover:border-olive-hi flex h-full flex-col border p-8"
             >
               <h3 className="text-2xl">{item.title}</h3>
               <p className="text-muted mt-3 flex-1 text-sm">{item.text}</p>

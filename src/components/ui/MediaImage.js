@@ -12,7 +12,9 @@ import { isVisible } from '@/lib/assets';
  *           proportions (no cropping at any screen size). Placeholders in natural mode use
  *           `fallbackRatio` (width / height).
  * `sizes`   feeds next/image srcset.
- * `reveal`  optional scroll reveal: 'left' | 'right' | 'up' | 'fade' (see globals.css). `delay` is in ms.
+ * `reveal`  optional scroll reveal: 'wipe' | 'up' | 'left' | 'right' | 'fade' (globals.css). `delay` in ms.
+ * `caption` optional { label, text }: an information overlay that rises in on hover (always shown
+ *           on touch screens, which have no hover).
  * `position` object-position class for cropping, e.g. 'object-left'. An asset's own `focus`
  *           (set in the curation script) takes precedence.
  * `mark`    optional large outlined numeral shown on placeholders (e.g. "01.02").
@@ -29,6 +31,7 @@ export default function MediaImage({
   mark,
   position = 'object-center',
   fallbackRatio = 4 / 5,
+  caption,
 }) {
   const asset = id ? getAsset(id) : null;
   const visible = isVisible(asset);
@@ -39,25 +42,29 @@ export default function MediaImage({
     ...(natural ? { aspectRatio: String(ratio) } : {}),
     ...(reveal ? { '--d': `${delay}ms` } : {}),
   };
-  const motion = reveal ? { 'data-reveal': reveal } : {};
+  // Placeholders never get the image wipe (nothing real to reveal): they simply fade in.
+  const motion = reveal ? { 'data-reveal': !visible && reveal === 'wipe' ? 'fade' : reveal } : {};
 
   if (visible) {
     return (
       <div
-        className={`bg-surface-2 relative overflow-hidden ${frameClass} ${className}`}
+        className={`group/media relative overflow-hidden ${frameClass} ${className}`}
         style={frameStyle}
         {...motion}
       >
-        <div data-reveal-scale className="absolute inset-0">
-          <Image
-            src={asset.src}
-            alt={asset.alt}
-            fill
-            sizes={sizes}
-            priority={priority}
-            style={asset.focus ? { objectPosition: asset.focus } : undefined}
-            className={`object-cover ${position} transition-transform duration-[900ms] ease-out md:hover:scale-[1.03]`}
-          />
+        <div data-wipe className="bg-surface-2 absolute inset-0">
+          <div data-reveal-scale className="absolute inset-0">
+            <Image
+              src={asset.src}
+              alt={asset.alt}
+              fill
+              sizes={sizes}
+              priority={priority}
+              style={asset.focus ? { objectPosition: asset.focus } : undefined}
+              className={`object-cover ${position} transition-transform duration-[1200ms] ease-[var(--ease-expo)] [@media(hover:hover)]:group-hover/media:scale-[1.05]`}
+            />
+          </div>
+          {caption && <MediaCaption {...caption} />}
         </div>
       </div>
     );
@@ -105,6 +112,21 @@ export default function MediaImage({
       <span className="text-olive-hi absolute bottom-6 left-6 text-[0.65rem] tracking-[0.22em] uppercase">
         {status}
       </span>
+    </div>
+  );
+}
+
+/** Hover information overlay: dark gradient + small label that rises into view. */
+export function MediaCaption({ label, text }) {
+  return (
+    <div className="from-ink/95 via-ink/55 pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t to-transparent px-4 pt-16 pb-4 transition-all duration-700 ease-[var(--ease-expo)] md:px-5 md:pb-5 [@media(hover:hover)]:translate-y-3 [@media(hover:hover)]:opacity-0 [@media(hover:hover)]:group-hover/media:translate-y-0 [@media(hover:hover)]:group-hover/media:opacity-100">
+      {label && (
+        <p className="text-olive-hi flex items-center gap-2 text-[0.65rem] font-medium tracking-[0.2em] uppercase">
+          <span aria-hidden="true" className="bg-olive-hi h-px w-4" />
+          {label}
+        </p>
+      )}
+      {text && <p className="mt-1.5 text-sm text-white">{text}</p>}
     </div>
   );
 }

@@ -27,14 +27,18 @@ export default function RelatedTopics({ pillar, topics, tone }) {
         </Link>
       </div>
 
-      <ul className="mt-10 grid gap-4 md:grid-cols-3">
-        {topics.map((t, i) => {
+      <ul
+        data-reveal="stagger"
+        style={{ '--d': '150ms' }}
+        className="mt-10 grid gap-4 md:grid-cols-3"
+      >
+        {topics.map((t) => {
           const number = `${pillar.number}.${String(pillar.topics.findIndex((x) => x.slug === t.slug) + 1).padStart(2, '0')}`;
           return (
-            <li key={t.slug} data-reveal="up" style={{ '--d': `${i * 90}ms` }}>
+            <li key={t.slug}>
               <Link
                 href={t.detailPage ? `/services/${t.slug}` : `/services#${t.slug}`}
-                className="group border-line bg-surface-2 hover:border-olive-hi flex h-full flex-col border p-7 transition-colors duration-300"
+                className="lift group border-line bg-surface-2 hover:border-olive-hi flex h-full flex-col border p-7"
               >
                 <span className="text-olive-hi text-xs tracking-[0.22em]">{number}</span>
                 <h3 className="mt-6 text-2xl">{t.name}</h3>

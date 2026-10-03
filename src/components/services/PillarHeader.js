@@ -1,5 +1,6 @@
 import MediaImage from '@/components/ui/MediaImage';
 import Placeholder from '@/components/ui/Placeholder';
+import SplitText from '@/components/ui/SplitText';
 
 /**
  * Opening "chapter" band for a pillar. Each of the three uses a different composition so the page
@@ -34,14 +35,15 @@ function Title({ pillar, total, reveal }) {
         {pillar.number} / {total}
       </p>
       <Numeral reveal={reveal}>{pillar.number}</Numeral>
-      <h2
+      <SplitText
+        as="h2"
         id={`${pillar.slug}-title`}
-        data-reveal={reveal}
-        style={{ '--d': '200ms' }}
+        reveal={Boolean(reveal)}
+        delay={200}
         className="mt-5 text-4xl tracking-wide uppercase md:mt-7 md:text-6xl"
       >
         {pillar.name}
-      </h2>
+      </SplitText>
     </div>
   );
 }
@@ -98,7 +100,7 @@ export default function PillarHeader({ pillar, index, total, tone }) {
               fallbackRatio={2.5}
               sizes="(min-width: 1280px) 1184px, 100vw"
               className="mt-12 md:mt-16"
-              reveal="fade"
+              reveal="wipe"
               delay={120}
             />
           </div>
@@ -114,7 +116,7 @@ export default function PillarHeader({ pillar, index, total, tone }) {
             aspect="natural"
             fallbackRatio={21 / 9}
             sizes="100vw"
-            reveal="fade"
+            reveal="wipe"
           />
           <div className="container-page pt-14 pb-16 md:pt-24 md:pb-28">
             <div className="grid gap-8 md:grid-cols-12 md:items-end md:gap-10">
@@ -142,7 +144,7 @@ export default function PillarHeader({ pillar, index, total, tone }) {
                   aspect="natural"
                   fallbackRatio={4 / 5}
                   sizes="(min-width: 768px) 40vw, 100vw"
-                  reveal="left"
+                  reveal="wipe"
                 />
               </div>
               <div className="space-y-10 md:col-span-7">

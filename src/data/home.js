@@ -26,8 +26,16 @@
  */
 export const home = {
   hero: {
-    image: 'night-street-hero', // poster / fallback: an id from data/assets.js
+    image: 'night-street-hero', // poster / fallback / first slide: an id from data/assets.js
     video: null,
+    // Temporary hero motion until real footage exists: a crossfade of real MAEVEN stills.
+    // Only cleared assets are shown; when `video` is set, the video replaces the slideshow.
+    // label = Photography service name from the spreadsheet (Sheet B); detail = what the photo shows.
+    slides: [
+      { id: 'night-street-hero', label: 'Lifestyle & Campaign', detail: 'On location, at night' },
+      { id: 'pink-ball-banner', label: 'On-Model Photography', detail: 'Studio' },
+      { id: 'brick-wall-banner', label: 'Lifestyle & Campaign', detail: 'On location, flash' },
+    ],
     title: 'MAEVEN Productions',
     // draft
     text: 'A production studio for content, technology and brand.',
@@ -44,6 +52,8 @@ export const home = {
 
   studio: {
     image: 'shadow-walk-banner',
+    // source: the Video & Film description ("managed from pre-production through post-production").
+    process: ['Pre-production', 'Production', 'Post-production'],
     // draft heading; the paragraphs below are source text (Video & Film, Post-Production descriptions).
     title: 'From pre-production to post-production',
     paragraphs: [
@@ -55,15 +65,22 @@ export const home = {
   // Services preview: the only place the pillars appear on Home. `topics` = how many names to show.
   servicesPreview: { topics: 3 },
 
-  // Work mosaic: five stills, no captions or claims. Order matters (see WorkMosaic layout):
-  // wide, tall, then three. None of the curated assets flagged for visible brand marks are used.
+  // Work: a slowly drifting rail of real stills (no crop), each with a hover caption.
+  // label = Photography service name from the spreadsheet (Sheet B); text = what the photo shows.
+  // Assets flagged for visible third-party brand marks are left out.
   work: {
-    images: [
-      'brick-wall-banner',
-      'rain-editorial',
-      'pair-light-set',
-      'packshot-jeans',
-      'detail-bag-interior',
+    items: [
+      { id: 'brick-wall-banner', label: 'Lifestyle & Campaign', text: 'On location, flash' },
+      { id: 'rain-editorial', label: 'On-Model Photography', text: 'Studio, low light' },
+      { id: 'packshot-jeans', label: 'Packshot Photography', text: 'Flat lay' },
+      { id: 'pair-light-set', label: 'On-Model Photography', text: 'Studio' },
+      { id: 'detail-bag-interior', label: 'Packshot Photography', text: 'Detail' },
+      { id: 'shadow-portrait', label: 'On-Model Photography', text: 'Studio, hard light' },
+      { id: 'packshot-dress', label: 'Packshot Photography', text: 'Studio' },
+      { id: 'ball-pose', label: 'On-Model Photography', text: 'Studio' },
+      { id: 'packshot-jacket', label: 'Packshot Photography', text: 'Studio' },
+      { id: 'pair-back-front', label: 'On-Model Photography', text: 'Front and back' },
+      { id: 'detail-knit-collar', label: 'Packshot Photography', text: 'Detail' },
     ],
   },
 
