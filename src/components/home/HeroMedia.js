@@ -143,9 +143,7 @@ export default function HeroMedia({ slides = [], video }) {
           <div className="from-surface-2 to-ink absolute inset-0 bg-gradient-to-br">
             <span className="text-muted absolute top-6 right-5 text-[0.65rem] tracking-[0.22em] uppercase md:right-8">
               Hero visual
-              <span className="text-olive-hi ml-3">
-                {slides.length ? 'Permission pending' : 'Asset required'}
-              </span>
+              <span className="text-olive-hi ml-3">Asset required</span>
             </span>
           </div>
         )}

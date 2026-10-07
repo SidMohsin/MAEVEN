@@ -1,10 +1,18 @@
 // Sanity-checks the service data before every build. Fails loudly on structural mistakes.
 import { pillars } from '../src/data/services.js';
+import { existsSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 import { assets } from '../src/data/assets.js';
 
 const assetIds = new Set(assets.map((a) => a.id));
 
 const errors = [];
+
+// Every image the site references must exist under public/ (and therefore in Git and on the host).
+for (const a of assets) {
+  const file = fileURLToPath(new URL(`../public${a.src}`, import.meta.url));
+  if (!existsSync(file)) errors.push(`Asset ${a.id}: missing file public${a.src}`);
+}
 const slugs = new Set();
 const EXPECTED = { 'content-production': 5, 'smart-tech': 8, 'creative-brand': 5 };
 

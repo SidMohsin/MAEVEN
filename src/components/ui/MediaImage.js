@@ -4,9 +4,8 @@ import { isVisible } from '@/lib/assets';
 
 /**
  * Renders a curated asset by id inside a fixed-aspect frame.
- *  - cleared asset            -> the image
- *  - uncleared asset          -> labelled placeholder (unless NEXT_PUBLIC_SHOW_PENDING_ASSETS=1, local preview)
- *  - no asset (id is null)    -> labelled "asset required" placeholder
+ *  - approved asset           -> the image
+ *  - no approved asset        -> labelled "asset required" placeholder (e.g. topics with no photo yet)
  *
  * `aspect`  Tailwind aspect class, e.g. "aspect-[4/5]", or "natural" to use the asset's own
  *           proportions (no cropping at any screen size). Placeholders in natural mode use
@@ -70,7 +69,7 @@ export default function MediaImage({
     );
   }
 
-  const status = asset ? 'Permission pending' : 'Asset required';
+  const status = 'Asset required';
   return (
     <div
       role="img"

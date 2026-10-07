@@ -14,6 +14,7 @@ Next.js (App Router) + React, plain JavaScript, Tailwind CSS v4.
 - `src/data/site.js`: nav, footer, contact details. Unconfirmed facts are placeholders, never invented values.
 - `src/app/globals.css`: design tokens (`@theme`). Olive `#596946` is sampled from the logo.
 - `src/components/`: `layout/` (Header, Footer) and `ui/` (Button, Section, Eyebrow, Placeholder, Logo, Icon).
+- `public/images/`: the site's photos, served at `/images/<id>.jpg` and committed to Git. `src/data/assets.js` lists each one (alt text, size, focal point). **To replace a photo, overwrite the file at the same path** and update its width/height/alt in `assets.js` if the picture changed. The build fails if a listed file is missing.
 - `docs/asset-inventory.csv`: inventory of the client asset zip. The raw zip is git-ignored and never committed.
 
 ## Content rules
