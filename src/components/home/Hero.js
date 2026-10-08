@@ -15,7 +15,7 @@ export default function Hero({ hero }) {
     <section className="relative isolate -mt-[4.25rem] flex min-h-svh flex-col justify-end overflow-hidden">
       <HeroVideo video={hero.video} />
 
-      <div className="container-page pt-36 pb-10 md:pb-14">
+      <div className="container-page pt-56 pb-10 md:pt-60 md:pb-14">
         <div className="rise">
           <Eyebrow light>Production studio</Eyebrow>
         </div>
