@@ -28,17 +28,17 @@ export default function HomePage() {
   return (
     <>
       <Hero hero={home.hero} />
-      <StatsBar stats={home.stats} />
-      <ClientMarquee eyebrow={home.partners.eyebrow} />
-      <Experts experts={home.experts} tone="ink" />
+      <StatsBar stats={home.stats} tone="olive" />
+      <ClientMarquee eyebrow={home.partners.eyebrow} atmos={1} />
+      <Experts experts={home.experts} tone="ink" atmos={2} />
       <CaseStudies cases={home.cases} />
       <PortfolioMosaic portfolio={home.portfolio} />
-      <Results results={home.results} tone="surface" />
+      <Results results={home.results} tone="olive" />
       <Testimonials testimonials={home.testimonials} />
-      <ProcessSteps process={home.process} tone="ink" />
-      <HomeContact data={home.contact} tone="surface" />
+      <ProcessSteps process={home.process} tone="light" />
+      <HomeContact data={home.contact} tone="ink" atmos={2} />
       <ContinueExploring
-        tone="ink"
+        tone="light"
         items={[
           {
             title: 'Services',

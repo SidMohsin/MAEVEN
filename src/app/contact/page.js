@@ -35,7 +35,7 @@ const details = [
 export default function ContactPage() {
   return (
     <>
-      <Section className="!pt-20 !pb-14 md:!pt-28 md:!pb-20">
+      <Section atmos={3} className="!pt-20 !pb-14 md:!pt-28 md:!pb-20">
         <div className="rise">
           <Eyebrow>Contact</Eyebrow>
         </div>
@@ -70,7 +70,7 @@ export default function ContactPage() {
         </ol>
       </Section>
 
-      <Section tone="surface" id="inquiry" className="md:!py-28">
+      <Section tone="ink" atmos={1} id="inquiry" className="md:!py-28">
         <div className="grid gap-16 lg:grid-cols-12 lg:gap-14">
           <div className="lg:col-span-7" data-reveal="up">
             <h2 className="text-4xl md:text-5xl">Send an inquiry</h2>
@@ -105,7 +105,7 @@ export default function ContactPage() {
       </Section>
 
       <ContinueExploring
-        tone="ink"
+        tone="light"
         items={[
           {
             title: 'Services',

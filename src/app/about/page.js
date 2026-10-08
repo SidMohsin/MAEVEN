@@ -49,7 +49,7 @@ export default function AboutPage() {
   return (
     <>
       {/* Hero: small label, statement headline, one line (centred, like GoPackshot's About) */}
-      <Section className="!pt-24 !pb-16 text-center md:!pt-36 md:!pb-24">
+      <Section atmos={3} className="!pt-24 !pb-16 text-center md:!pt-36 md:!pb-24">
         <div className="rise flex justify-center">
           <Eyebrow>About</Eyebrow>
         </div>
@@ -81,10 +81,10 @@ export default function AboutPage() {
         />
       </Section>
 
-      <StatsBar stats={about.stats} />
+      <StatsBar stats={about.stats} tone="olive" />
 
       {/* Mission (real wording from MAEVEN's own designs) */}
-      <Section tone="ink" className="md:!py-32">
+      <Section tone="ink" atmos={1} className="md:!py-32">
         <div className="grid gap-10 md:grid-cols-12 md:gap-10">
           <div className="md:col-span-3" data-reveal="up">
             <Eyebrow>{about.mission.eyebrow}</Eyebrow>
@@ -112,7 +112,7 @@ export default function AboutPage() {
       </Section>
 
       {/* Team */}
-      <Section tone="surface" className="md:!py-32">
+      <Section tone="light" className="md:!py-32">
         <div className="mx-auto max-w-3xl text-center">
           <div data-reveal="up" className="flex justify-center">
             <Eyebrow>{about.team.eyebrow}</Eyebrow>
@@ -141,7 +141,7 @@ export default function AboutPage() {
       </Section>
 
       {/* Founder quote */}
-      <Section tone="ink" className="md:!py-32">
+      <Section tone="ink" atmos={2} className="md:!py-32">
         <div className="grid items-center gap-10 md:grid-cols-12 md:gap-16">
           <div className="md:col-span-5">
             <MediaImage
@@ -174,7 +174,7 @@ export default function AboutPage() {
       </Section>
 
       {/* What sets us apart */}
-      <Section tone="surface" className="md:!py-32">
+      <Section tone="light" className="md:!py-32">
         <div data-reveal="up">
           <Eyebrow>Why MAEVEN</Eyebrow>
           <h2 className="mt-6 max-w-3xl text-5xl md:text-7xl">What sets us apart</h2>
@@ -200,10 +200,10 @@ export default function AboutPage() {
         </ol>
       </Section>
 
-      <ClientMarquee eyebrow={about.partners.eyebrow} />
+      <ClientMarquee eyebrow={about.partners.eyebrow} atmos={1} />
 
       <ContinueExploring
-        tone="surface"
+        tone="light"
         items={[
           {
             title: 'Services',

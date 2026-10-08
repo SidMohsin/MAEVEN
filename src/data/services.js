@@ -18,7 +18,7 @@
  *   description: string,
  *   groups: ServiceGroup[],
  *   detailPage: boolean,
- *   image: string | null,      // asset id (see data/assets.js): the photo shown for this service on /services
+ *   image: string | null,      // asset id (see data/assets.js); null = no photo of this service yet
  *   hero?: string | null,      // detail-page hero asset id (wide); falls back to `image`
  *   gallery?: string[],        // supporting asset ids (detail page gallery)
  *   process?: { title: string, text: string }[], // only when real process content exists
@@ -65,18 +65,19 @@ export const pillars = [
         ],
         detailPage: true,
         image: 'studio-portrait-hood',
-        hero: 'neon-pink-street',
+        // Photos on this page are used nowhere else on the site (checked in validate-data.mjs).
+        hero: 'brick-wall-banner',
         gallery: [
           'neon-library',
-          'studio-portrait-tee',
           'lifestyle-brick-full',
           'studio-portrait-pose',
           'rain-editorial',
           'pair-light-set',
-          'shadow-portrait',
-          'ball-pose',
-          'neon-street-walk',
-          'pink-ball-banner',
+          'night-street-hero',
+          'packshot-dress',
+          'detail-knit-collar',
+          'packshot-shirt',
+          'packshot-knit-polo',
         ],
       },
       {
@@ -147,7 +148,7 @@ export const pillars = [
         description: 'Voice and sound production for broadcast and digital.',
         groups: [{ items: items('Voice-over & radio') }],
         detailPage: false,
-        image: 'bts-profile-light',
+        image: null,
       },
     ],
   },
@@ -204,7 +205,7 @@ export const pillars = [
           },
         ],
         detailPage: false,
-        image: 'bts-retouch-laptop',
+        image: null,
       },
       {
         slug: 'ar-vr-immersive',
@@ -223,7 +224,7 @@ export const pillars = [
           },
         ],
         detailPage: false,
-        image: 'rain-editorial',
+        image: null,
       },
       {
         slug: '3d-visualization',
@@ -242,7 +243,7 @@ export const pillars = [
           },
         ],
         detailPage: false,
-        image: 'packshot-quilted-tote',
+        image: null,
       },
       {
         slug: 'ai-content-creation',
@@ -263,7 +264,7 @@ export const pillars = [
           },
         ],
         detailPage: false,
-        image: 'bts-portrait-bw',
+        image: null,
       },
       {
         slug: 'product-retail-video',
@@ -281,7 +282,7 @@ export const pillars = [
           },
         ],
         detailPage: false,
-        image: 'bts-studio-set',
+        image: null,
       },
       {
         slug: 'enterprise-learning-video',
@@ -301,7 +302,7 @@ export const pillars = [
           },
         ],
         detailPage: false,
-        image: 'bts-photographer',
+        image: null,
       },
       {
         slug: 'creator-ip-studio',
@@ -323,7 +324,7 @@ export const pillars = [
           },
         ],
         detailPage: false,
-        image: 'bts-profile',
+        image: null,
       },
       {
         slug: 'assets-niches',
@@ -342,7 +343,7 @@ export const pillars = [
           },
         ],
         detailPage: false,
-        image: 'neon-modny-pair',
+        image: null,
       },
     ],
   },
@@ -372,7 +373,7 @@ export const pillars = [
           },
         ],
         detailPage: false,
-        image: 'lifestyle-brick-close',
+        image: null,
       },
       {
         slug: 'design',
@@ -391,7 +392,7 @@ export const pillars = [
           },
         ],
         detailPage: false,
-        image: 'tfc-cami',
+        image: null,
       },
       {
         slug: 'content',
@@ -400,7 +401,7 @@ export const pillars = [
         description: 'Words and strategy that carry the brand voice.',
         groups: [{ items: items('Copywriting', 'Content strategy', 'Blog & editorial') }],
         detailPage: false,
-        image: 'neon-cafe',
+        image: null,
       },
       {
         slug: 'campaign-strategy',
@@ -411,7 +412,7 @@ export const pillars = [
           { items: items('Campaign ideation', 'Creative mandate & briefs', 'Concept creation') },
         ],
         detailPage: false,
-        image: 'neon-pink-street',
+        image: null,
       },
       {
         slug: 'insourcing',
@@ -420,7 +421,7 @@ export const pillars = [
         description: 'Embedded creative teams that scale with your brand.',
         groups: [{ items: items('Embedded creative teams', 'Dedicated brand studio') }],
         detailPage: false,
-        image: 'bts-styling',
+        image: null,
       },
     ],
   },

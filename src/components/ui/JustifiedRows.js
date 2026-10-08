@@ -39,7 +39,7 @@ function Rows({ rows, className = '', need, fallbackRatio, reveal, priority, cap
                   sizes={`${Math.ceil((ratios[i] / sum) * 100)}vw`}
                   reveal={reveal}
                   delay={i * 120}
-                  priority={priority && ri === 0}
+                  priority={ri === 0 ? priority : false}
                   caption={caption && id ? caption(id) : undefined}
                 />
               </div>

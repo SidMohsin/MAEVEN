@@ -8,7 +8,7 @@ import { clients } from '@/data/clients';
  * The set is rendered twice so the loop is seamless; the copy is hidden from assistive tech.
  * Pauses on hover; stops with reduced motion (then wraps as a static list).
  */
-export default function ClientMarquee({ eyebrow }) {
+export default function ClientMarquee({ eyebrow, atmos }) {
   const Item = ({ c }) => (
     <li className="flex shrink-0 items-center px-8 md:px-12">
       {c.logo ? (
@@ -21,7 +21,10 @@ export default function ClientMarquee({ eyebrow }) {
     </li>
   );
   return (
-    <section aria-label={eyebrow} className="bg-ink py-10 md:py-14">
+    <section
+      aria-label={eyebrow}
+      className={`bg-ink py-10 md:py-14 ${atmos ? `atmos atmos-${atmos}` : ''}`}
+    >
       <div className="container-page flex justify-center">
         <Eyebrow>{eyebrow}</Eyebrow>
       </div>

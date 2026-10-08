@@ -7,14 +7,14 @@ import { contact } from '@/data/site';
 import { getPillars } from '@/lib/services';
 
 /** Contact on Home (GoPackshot puts the form on the homepage): form + direct details. */
-export default function HomeContact({ data, tone }) {
+export default function HomeContact({ data, tone, atmos }) {
   const details = [
     { label: 'Email', value: contact.email },
     { label: 'Phone', value: contact.phone },
     { label: 'Studio', value: contact.city },
   ];
   return (
-    <Section tone={tone} id="contact" className="md:!py-32">
+    <Section tone={tone} atmos={atmos} id="contact" className="md:!py-32">
       <div className="grid gap-14 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-5">
           <div data-reveal="up">

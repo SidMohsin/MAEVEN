@@ -108,7 +108,7 @@ export default function HeroVideo({ video }) {
       </div>
 
       {/* Info card: what is on screen, loop progress, pause */}
-      <div className="pointer-events-none absolute inset-x-0 top-5 z-10 md:top-8">
+      <div className="pointer-events-none absolute inset-x-0 top-24 z-10 md:top-28">
         <div className="container-page flex justify-end">
           <div
             className="pop-in border-olive bg-ink/75 pointer-events-auto flex w-60 items-center gap-4 border-l py-3 pr-3 pl-4 md:w-72"

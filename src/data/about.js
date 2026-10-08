@@ -19,7 +19,7 @@ export const about = {
   },
 
   // Image band after the hero (asset ids): one wide, one portrait.
-  images: ['neon-cafe', 'bts-styling'],
+  images: ['neon-brick-step', 'bts-profile'],
 
   stats: [
     { value: ph('20XX'), label: 'Founded' },
@@ -60,7 +60,7 @@ export const about = {
     ),
     name: ph('Name Surname'),
     role: ph('Founder, MAEVEN Productions'),
-    image: 'bts-camera',
+    image: 'neon-window-pair',
   },
 
   // "What sets us apart": each point is backed by a sentence from the source material.

@@ -24,7 +24,7 @@ const CELLS = [
 
 export default function PortfolioMosaic({ portfolio }) {
   return (
-    <section className="bg-ink py-20 md:py-32">
+    <section className="atmos atmos-3 bg-ink py-20 md:py-32">
       <div className="container-page">
         <div className="mx-auto max-w-3xl text-center">
           <div data-reveal="up" className="flex justify-center">

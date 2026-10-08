@@ -12,10 +12,10 @@ export default function Hero({ hero }) {
   const [line1, line2] = hero.title;
   const trusted = clients.slice(0, hero.trustedCount);
   return (
-    <section className="relative isolate flex min-h-[calc(100svh-4.25rem)] flex-col justify-end overflow-hidden">
+    <section className="relative isolate -mt-[4.25rem] flex min-h-svh flex-col justify-end overflow-hidden">
       <HeroVideo video={hero.video} />
 
-      <div className="container-page pt-28 pb-10 md:pb-14">
+      <div className="container-page pt-36 pb-10 md:pb-14">
         <div className="rise">
           <Eyebrow light>Production studio</Eyebrow>
         </div>
@@ -23,7 +23,7 @@ export default function Hero({ hero }) {
           as="h1"
           play
           delay={120}
-          className="mt-6 max-w-5xl text-[2.9rem] leading-[1] min-[420px]:text-[3.3rem] md:text-7xl lg:text-[6.5rem] lg:leading-[0.98]"
+          className="mt-6 max-w-5xl text-[2.9rem] leading-[1.06] min-[420px]:text-[3.3rem] md:text-7xl lg:text-[6.5rem] lg:leading-[1.06]"
         >
           {line1} <span className="text-olive-hi">{line2}</span>
         </SplitText>

@@ -17,7 +17,8 @@ import subprocess
 import sys
 from pathlib import Path
 
-RAW = Path(sys.argv[1] if len(sys.argv) > 1 else 'D:/MAEVEN-raw/studio X')
+_args = [a for a in sys.argv[1:] if not a.startswith('--')]
+RAW = Path(_args[0] if _args else 'D:/MAEVEN-raw/studio X')
 OUT = Path(__file__).resolve().parent.parent / 'public' / 'video'
 FADE = 0.6  # crossfade between clips, seconds
 
@@ -32,6 +33,42 @@ PORTRAIT = [
     ('footage/DSC_6108.MOV', 0.0, 1.8),
 ]
 REEL = ('Videos/1.mov', 2.9, 13.1)
+
+# Services page: video only for the two services that are video themselves. One continuous take
+# each (no cuts), normal speed, 4:5, looped seamlessly (the end cross-fades into the start).
+# (slug, file, first frame, last frame, frames to drop). Both clips were shot vertically but stored
+# sideways (rotated here). Dropped frames are single-frame camera-flash spikes (measured brightness
+# jumps), which would otherwise flicker; removing one frame is invisible as motion.
+SERVICE_VIDEOS = [
+    ('video-film', 'footage/DSC_6075.MOV', 2, 146, [55, 101]),            # model turning on set
+    ('product-retail-video', 'footage/DSC_5944.MOV', 0, 101, [43, 80, 81]),   # model on set by the softbox
+]
+LOOP_FADE = 0.6
+
+
+def service_video(slug, f, first, last, drop, out_dir):
+    out = out_dir / f'{slug}.mp4'
+    keep = f"between(n,{first},{last})" + ''.join(f'*not(eq(n,{n}))' for n in drop)
+    d = (last - first + 1 - len(drop)) / 30
+    x = LOOP_FADE
+    chain = (f"[0:v]select='{keep}',setpts=N/30/TB,transpose=2,"
+             f'scale=720:900:force_original_aspect_ratio=increase,crop=720:900,'
+             f'fps=30,format=yuv420p,setsar=1,split[a][b];'
+             f'[b]trim=0:{x},setpts=PTS-STARTPTS[head];'
+             f'[a]trim={x}:{d:.3f},setpts=PTS-STARTPTS[body];'
+             f'[body][head]xfade=transition=fade:duration={x}:offset={d - 2 * x:.3f}[v]')
+    run(['-i', str(RAW / f), '-filter_complex', chain, '-map', '[v]', '-an', '-map_metadata', '-1',
+         '-c:v', 'libx264', '-preset', 'slow', '-crf', '26', '-movflags', '+faststart', str(out)])
+    return out
+
+
+def build_service_videos():
+    out_dir = OUT / 'services'
+    out_dir.mkdir(parents=True, exist_ok=True)
+    for c in SERVICE_VIDEOS:
+        out = service_video(*c, out_dir)
+        poster(out, out_dir / f'{c[0]}-poster.jpg')
+        print('services/' + out.name, round(out.stat().st_size / 1e3), 'KB')
 
 
 def run(args):
@@ -62,6 +99,9 @@ def poster(video, out):
 
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
+    build_service_videos()
+    if '--services' in sys.argv:  # only the Services page videos
+        return
     montage(LANDSCAPE, OUT / 'hero-landscape.mp4', (1920, 1080), rotate=False)
     montage(PORTRAIT, OUT / 'hero-portrait.mp4', (720, 1280), rotate=True)
     f, start, dur = REEL

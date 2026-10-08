@@ -134,18 +134,25 @@ STUDIO_PICKS = [
      'Laptop screen showing a fashion photo being retouched', 'Still frame from behind-the-scenes footage.'),
     # Behind-the-scenes stills for the Services page (frames checked: sharp, no Studio X mark;
     # Videos/1.mov is only used between its logo intro and outro).
-    ('bts-retouch-laptop', 'Videos', '1.mov@11.5', 'topic', 'ai-video-film',
+    ('bts-retouch-laptop', 'Videos', '1.mov@11.5', 'topic', 'smart-tech',
      'Laptop showing a full-length fashion photo in editing software', 'Still frame from the behind-the-scenes reel.'),
+    ('bts-profile', 'Videos', '1.mov@13.5', 'topic', 'about',
+     'Model in a grey hoodie in profile, looking down, in soft window light', 'Still frame from the behind-the-scenes reel.'),
+    ('bts-wardrobe', 'Videos', 'Sequence 02_1.MP4@2.6', 'topic', 'creative-brand',
+     'Stylist choosing shirts from a clothing rail before a shoot', 'Still frame from the behind-the-scenes sequence (logo-free part).'),
+    # Services page: photo shown when a service card is pointed at / swiped to (closest real material).
+    ('bts-tethered', 'Videos', 'Sequence 02_1.MP4@9.1', 'topic', 'ai-video-film',
+     'Studio monitor showing a portrait just captured on set', 'Still frame from the behind-the-scenes sequence.'),
     ('bts-portrait-bw', 'Videos', '1.mov@9.5', 'topic', 'ai-content-creation',
      'Black and white portrait of a blonde model in a white top', 'Still frame from the behind-the-scenes reel.'),
-    ('bts-profile', 'Videos', '1.mov@13.5', 'topic', 'creator-ip-studio',
-     'Model in a grey hoodie in profile, looking down, in soft window light', 'Still frame from the behind-the-scenes reel.'),
-    ('bts-profile-light', 'Videos', '1.mov@14.0', 'topic', 'audio',
-     'Model in profile with a soft blue light flare in the foreground', 'Still frame from the behind-the-scenes reel.'),
-    ('bts-studio-set', 'footage', 'DSC_6243.MOV@1.5', 'topic', 'product-retail-video',
-     'Model in jeans and a black top on a white studio set between softboxes and a monitor cart', 'Still frame from behind-the-scenes footage.'),
-    ('bts-photographer', 'footage', 'DSC_6262.MOV@1.5', 'topic', 'enterprise-learning-video',
-     'Photographer shooting a model in a denim skirt on a white studio set', 'Still frame from behind-the-scenes footage.'),
+    ('bts-casting', 'Videos', 'Sequence 02_1.MP4@0.9', 'topic', 'enterprise-learning-video',
+     'Model in a cream turtleneck talking during a casting', 'Still frame from the behind-the-scenes sequence.'),
+    ('bts-makeup', 'Videos', '1.mov@5.5', 'topic', 'creator-ip-studio',
+     'Model doing her make-up at a mirror lined with bulbs', 'Still frame from the behind-the-scenes reel.'),
+    ('bts-team', 'Videos', 'Sequence 02_1.MP4@12.95', 'topic', 'insourcing',
+     'Stylist and model talking on a white studio set', 'Still frame from the behind-the-scenes sequence.'),
+    ('packshot-print-back', TEST, 'offwhite back.jpg', 'topic', 'design',
+     'Back of a black sweatshirt with a white script print', 'Packshot.'),
 ]
 
 # Optional focal point (CSS object-position) so tight crops keep the subject in frame.
@@ -172,7 +179,7 @@ def load_zip_index(z):
 
 
 def load_folder_image(folder, fname):
-    if '.mov@' in fname.lower():
+    if '.mov@' in fname.lower() or '.mp4@' in fname.lower():
         name, t = fname.split('@')
         frame = subprocess.run(['ffmpeg', '-v', 'error', '-ss', t, '-i', str(folder / name), '-frames:v', '1',
                                 '-f', 'image2pipe', '-vcodec', 'png', '-'], check=True, capture_output=True).stdout

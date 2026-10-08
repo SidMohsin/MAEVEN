@@ -46,7 +46,7 @@ function CountUp({ value, start }) {
   return `${p.pre}${p.comma ? Number(num).toLocaleString('en-US') : num}${p.post}`;
 }
 
-export default function StatsBar({ stats }) {
+export default function StatsBar({ stats, tone }) {
   const ref = useRef(null);
   const [seen, setSeen] = useState(false);
   useEffect(() => {
@@ -60,7 +60,11 @@ export default function StatsBar({ stats }) {
   }, []);
 
   return (
-    <section ref={ref} aria-label="MAEVEN in numbers" className="border-line bg-surface border-y">
+    <section
+      ref={ref}
+      aria-label="MAEVEN in numbers"
+      className={tone === 'olive' ? 'tone-olive' : 'border-line bg-surface border-y'}
+    >
       <dl className="container-page grid grid-cols-2 md:grid-cols-4">
         {stats.map((s, i) => (
           <div

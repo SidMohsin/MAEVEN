@@ -5,12 +5,12 @@ import SplitText from '@/components/ui/SplitText';
 
 /**
  * "What we do" (GoPackshot's capability blocks): a centred heading, then three alternating
- * image + text blocks, each with a small label on the image and three check-marked points that
- * tick in one after another.
+ * image + text blocks, each with a small label on the image and three numbered points that
+ * appear one after another.
  */
-export default function Experts({ experts, tone }) {
+export default function Experts({ experts, tone, atmos }) {
   return (
-    <Section tone={tone} className="md:!py-32">
+    <Section tone={tone} atmos={atmos} className="md:!py-32">
       <div className="mx-auto max-w-3xl text-center">
         <div data-reveal="up" className="flex justify-center">
           <Eyebrow>{experts.eyebrow}</Eyebrow>

@@ -5,7 +5,7 @@ import T from '@/components/ui/T';
 import { getAsset } from '@/data/assets';
 
 /**
- * Case studies (GoPackshot's dark band): three cards, each with a photo from the client's shoot,
+ * Case studies (GoPackshot's case band, here a light band): three cards, each with a photo from the client's shoot,
  * the client name, challenge, solution and two figures. Text and figures are placeholders until
  * the client supplies them (data/home.js).
  */
@@ -15,9 +15,9 @@ function CaseCard({ item, index }) {
     <li
       data-reveal="up"
       style={{ '--d': `${index * 120}ms` }}
-      className="group border-line bg-ink/60 flex flex-col overflow-hidden border transition-colors duration-500 hover:border-[var(--color-olive)]"
+      className="group border-line bg-surface-2 flex flex-col overflow-hidden border transition-colors duration-500 hover:border-[var(--color-olive)]"
     >
-      <div className="relative aspect-[4/3] overflow-hidden">
+      <div className="tone-dark relative aspect-[4/3] overflow-hidden">
         {asset && (
           <Image
             src={asset.src}
@@ -64,7 +64,7 @@ function CaseCard({ item, index }) {
 
 export default function CaseStudies({ cases }) {
   return (
-    <section className="bg-surface py-20 md:py-32">
+    <section className="tone-light py-20 md:py-32">
       <div className="container-page">
         <div className="mx-auto max-w-3xl text-center">
           <div data-reveal="up" className="flex justify-center">

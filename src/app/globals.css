@@ -46,7 +46,7 @@
   h3,
   h4 {
     font-family: var(--font-heading);
-    color: #fff;
+    color: var(--color-white); /* white on dark; near-black inside .tone-light */
     letter-spacing: -0.01em;
     line-height: 1.08;
   }
@@ -183,19 +183,6 @@
 }
 
 /* Work rail: the track holds the set twice; moving by -50% loops seamlessly. */
-/* Services: the active card's top rule fills while its photo is shown. */
-@keyframes service-timer {
-  from {
-    transform: scaleX(0);
-  }
-  to {
-    transform: scaleX(1);
-  }
-}
-.service-timer {
-  animation: service-timer var(--timer, 4500ms) linear both;
-}
-
 @keyframes rail-drift {
   to {
     transform: translate3d(-50%, 0, 0);
@@ -507,5 +494,134 @@
   }
   .scrollbar-none::-webkit-scrollbar {
     display: none;
+  }
+}
+
+/* ------------------------------------------------------------------------------------------------
+ * Section tones and atmosphere. Theme stays black + olive; these break up long runs of flat black.
+ *
+ *  .tone-light  warm off-white band. Re-maps the colour tokens inside it, so every component
+ *               (text-white, text-paper/75, text-muted, border-line, bg-surface-2...) adapts
+ *               without per-component changes. Olive accents darken for contrast.
+ *  .tone-olive  deep olive band (logo olive, darkened): brand-coloured break between dark sections.
+ *  .tone-dark   restores the dark tokens inside a light band (text and scrims on photos).
+ *  .atmos       dark sections only: faint olive light spill (slow drift) + fine static grain.
+ *               .atmos-1/2/3 place the light differently so no two sections look the same.
+ * ---------------------------------------------------------------------------------------------- */
+.tone-light {
+  --color-ink: #efece4;
+  --color-surface: #e7e3d8;
+  --color-surface-2: #ffffff;
+  --color-line: #d5d0c2;
+  --color-paper: #1d1f1a;
+  --color-white: #0e100c;
+  --color-muted: #626558;
+  --color-olive-hi: #4b5a38;
+  background-color: var(--color-ink);
+  color: var(--color-paper);
+}
+.tone-olive {
+  --color-ink: #262e1f;
+  --color-surface: #2d3625;
+  --color-surface-2: #34402b;
+  --color-line: #45523a;
+  --color-muted: #b3bba3;
+  --color-olive-hi: #c2d0a2;
+  background-color: var(--color-ink);
+  color: var(--color-paper);
+}
+.tone-dark {
+  --color-ink: #0a0a0a;
+  --color-surface: #141414;
+  --color-surface-2: #1c1c1c;
+  --color-line: #2a2a2a;
+  --color-paper: #ece9e2;
+  --color-white: #ffffff;
+  --color-muted: #9a9a94;
+  --color-olive-hi: #8a9c6e;
+}
+
+.atmos {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+}
+.atmos::before,
+.atmos::after {
+  content: '';
+  position: absolute;
+  pointer-events: none;
+  z-index: -1;
+}
+/* Olive light spill: two soft pools, drifting very slowly. */
+.atmos::before {
+  inset: -15%;
+  background:
+    radial-gradient(
+      42rem 30rem at var(--gx, 12%) var(--gy, 18%),
+      rgb(89 105 70 / 0.2),
+      transparent 70%
+    ),
+    radial-gradient(
+      36rem 26rem at var(--gx2, 88%) var(--gy2, 86%),
+      rgb(89 105 70 / 0.12),
+      transparent 70%
+    );
+  animation: atmos-drift 26s ease-in-out infinite alternate;
+}
+/* Fine static grain: reads as photographic paper instead of flat screen black. */
+.atmos::after {
+  inset: 0;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.atmos-2 {
+  --gx: 88%;
+  --gy: 14%;
+  --gx2: 8%;
+  --gy2: 88%;
+}
+.atmos-3 {
+  --gx: 50%;
+  --gy: -4%;
+  --gx2: 92%;
+  --gy2: 72%;
+}
+@keyframes atmos-drift {
+  from {
+    transform: translate3d(-2%, -1.5%, 0) scale(1);
+  }
+  to {
+    transform: translate3d(2%, 1.5%, 0) scale(1.06);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .atmos::before {
+    animation: none;
+  }
+}
+
+/* Phone menu: panel drops in from under the navbar, the page behind dims. */
+@keyframes menu-drop {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -0.75rem, 0);
+  }
+}
+@keyframes menu-fade {
+  from {
+    opacity: 0;
+  }
+}
+.menu-drop {
+  animation: menu-drop 380ms var(--ease-expo) both;
+}
+.menu-fade {
+  animation: menu-fade 300ms ease-out both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .menu-drop,
+  .menu-fade {
+    animation: none;
   }
 }

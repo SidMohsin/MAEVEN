@@ -35,7 +35,7 @@ export default function Testimonials({ testimonials }) {
   };
 
   return (
-    <section className="bg-surface py-20 md:py-32">
+    <section className="atmos atmos-1 bg-ink py-20 md:py-32">
       <div className="container-page">
         <div className="mx-auto max-w-3xl text-center">
           <div data-reveal="up" className="flex justify-center">
@@ -57,7 +57,7 @@ export default function Testimonials({ testimonials }) {
             {testimonials.items.map((t) => (
               <li
                 key={t.id}
-                className="border-line bg-ink flex w-full shrink-0 snap-start flex-col border p-7 md:w-[calc((100%-2.5rem)/3)] md:p-8"
+                className="border-line bg-surface/80 flex w-full shrink-0 snap-start flex-col border p-7 md:w-[calc((100%-2.5rem)/3)] md:p-8"
               >
                 <p className="font-heading text-paper/60 text-sm tracking-[0.2em] uppercase">
                   <T v={t.brand} />
