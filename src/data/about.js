@@ -1,8 +1,8 @@
 import { ph } from '../lib/content.js';
 
 /**
- * About page content, in GoPackshot's About order (design is MAEVEN's own):
- *   hero · images · numbers · mission · team · founder quote · what sets us apart · brands.
+ * About page content (client wording, Oct 2026), in GoPackshot's About order:
+ *   hero · images · numbers · who we are · founder note · what sets us apart · brands.
  *
  * Copy labels (same convention as data/home.js):
  *  - `design`:  wording from MAEVEN's own Studio X marketing artboards (Studio X = former name).
@@ -12,17 +12,17 @@ import { ph } from '../lib/content.js';
  */
 export const about = {
   hero: {
-    // draft: a positioning headline (two short lines), not a restatement of the nav label.
-    title: ['Crafted in the studio.', 'Made for every channel.'],
-    // draft
-    text: 'MAEVEN Productions brings photography, film, smart technology and brand work together in one production studio.',
+    // client (material request, About)
+    title: ['Made in the studio.', 'Built for every channel.'],
+    text: 'MAEVEN Productions brings creative production and Smart Tech AI together under one roof.',
   },
 
   // Image band after the hero (asset ids): one wide, one portrait.
   images: ['neon-brick-step', 'bts-profile'],
 
   stats: [
-    { value: ph('20XX'), label: 'Founded' },
+    // client: "With over 10 years of experience in e-commerce photography"
+    { value: '10+', label: 'Years of experience' },
     { value: ph('00'), label: 'People in the team' },
     { value: ph('00+'), label: 'Brands served' },
     // design: the artboards place the studio in Wrocław
@@ -30,60 +30,44 @@ export const about = {
   ],
 
   mission: {
-    eyebrow: 'Our mission',
-    // design (verbatim)
-    lead: 'Our mission is to be a leading European production house, renowned for our sharp, modern approach and seamless, high-quality production services.',
-    // design (verbatim)
-    text: 'We empower our clients to focus on their core business by handling every aspect of the production process.',
-    story: ph(
-      'Two or three sentences on how MAEVEN started: when, by whom, and how Studio X became MAEVEN Productions.',
-    ),
-  },
-
-  team: {
-    eyebrow: 'The team',
-    title: 'The people behind the production.',
-    // One card per person; photo = asset id when supplied (null shows a neutral silhouette).
-    members: [1, 2, 3, 4].map((n) => ({
-      id: n,
-      name: ph('Name Surname'),
-      role: ph(
-        ['Founder & CEO', 'Head of Production', 'Lead Photographer', 'Post-Production Lead'][n - 1],
-      ),
-      photo: null,
-    })),
+    eyebrow: 'Who we are',
+    // client (material request, About · mission)
+    lead: 'With over 10 years of experience in e-commerce photography, MAEVEN is a production partner for fashion brands across Europe.',
+    text: 'We create high-quality visual content that helps brands present their products clearly, consistently and at scale across all e-commerce channels.',
+    story:
+      'Brands need more than great images. They need a visual world that works everywhere. MAEVEN brings photography, film, digital content, advertising and Smart Tech AI together in one production studio, creating, adapting and delivering content from the first brief to every final touchpoint.',
   },
 
   quote: {
-    text: ph(
-      'A short statement from the founder on why MAEVEN exists and what every client should expect from the studio.',
-    ),
+    eyebrow: 'A note from the founder',
+    // client (material request, A Note from the Founder)
+    text: [
+      'MAEVEN exists to make great production simpler, more creative and more connected. We bring craft, technology and a strong production mindset together under one roof, so every client gets thoughtful collaboration, attention to detail and work they can be proud to put their name behind.',
+      'That’s what you can expect from MAEVEN: clarity, craft and consistency, from the first brief to the final frame.',
+    ],
     name: ph('Name Surname'),
     role: ph('Founder, MAEVEN Productions'),
     image: 'neon-window-pair',
   },
 
-  // "What sets us apart": each point is backed by a sentence from the source material.
+  // "What sets us apart" (client, material request)
+  apart: {
+    lead: 'Our focus is simple. Fast, reliable production that delivers visuals designed to sell.',
+    text: 'We take time to understand your brand, products and requirements before every shoot to ensure the right visual direction from the start.',
+    tagline: ['One studio', 'Every channel', 'Production + Smart Tech AI'],
+  },
   principles: [
     {
       title: 'End to end',
-      // design: mission
-      text: 'From planning and styling to shooting, retouching and delivery: every aspect of the production process, handled for you.',
+      text: 'Packshots, films, model shoots and live content produced from concept to final delivery, combining creative production, post-production and Smart Tech AI where it adds value.',
     },
     {
       title: 'Every channel',
-      // source: Photography description
-      text: 'Visuals crafted for websites, social media, advertising, and every brand touchpoint.',
+      text: 'From the first scroll to the final frame, we create visual content that brings your brand to life across every touchpoint.',
     },
     {
       title: 'Production and technology',
-      // source: AI Video & Film description
-      text: 'We combine AI, CGI, and production expertise to create visually compelling content at scale.',
-    },
-    {
-      title: 'On-model to packshot',
-      // design
-      text: 'From on-model images and videos to packshots, we deliver high-quality visuals that make your products stand out.',
+      text: 'We combine the craft of production with the possibilities of Smart Tech AI, CGI and digital technology to create new ways for brands to tell their stories.',
     },
   ],
 

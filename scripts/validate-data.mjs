@@ -30,7 +30,6 @@ const pageImages = [
   ...home.portfolio.tiles.map((t) => t.image),
   ...about.images,
   about.quote.image,
-  ...about.team.members.map((m) => m.photo),
 ].filter(Boolean);
 for (const id of pageImages) {
   if (!assetIds.has(id)) errors.push(`Page content: unknown asset id ${id}`);

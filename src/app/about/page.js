@@ -18,29 +18,9 @@ export const metadata = {
   alternates: { canonical: '/about' },
 };
 
-/** Team card photo: the real portrait when supplied, otherwise a quiet silhouette frame. */
-function MemberPhoto({ id, name }) {
-  if (isVisible(id ? getAsset(id) : null)) {
-    return (
-      <MediaImage id={id} need={name} aspect="aspect-[4/5]" sizes="(min-width: 768px) 25vw, 50vw" />
-    );
-  }
-  return (
-    <div
-      aria-hidden="true"
-      className="from-surface-2 to-ink border-line flex aspect-[4/5] items-end justify-center overflow-hidden border bg-gradient-to-b"
-    >
-      <svg viewBox="0 0 100 100" className="text-line w-3/4" fill="currentColor">
-        <circle cx="50" cy="38" r="18" />
-        <path d="M14 100c0-22 16-36 36-36s36 14 36 36z" />
-      </svg>
-    </div>
-  );
-}
-
 /**
  * About follows GoPackshot's About order, in MAEVEN's design: statement hero > visuals > numbers >
- * mission > team > founder quote > what sets us apart > brands > continue exploring.
+ * who we are > founder note > what sets us apart > brands > continue exploring.
  * Content lives in data/about.js; placeholders are marked ph('...').
  */
 export default function AboutPage() {
@@ -82,7 +62,7 @@ export default function AboutPage() {
 
       <StatsBar stats={about.stats} tone="olive" />
 
-      {/* Mission (real wording from MAEVEN's own designs) */}
+      {/* Who we are (client wording) */}
       <Section tone="ink" atmos={1} className="md:!py-32">
         <div className="grid gap-10 md:grid-cols-12 md:gap-10">
           <div className="md:col-span-3" data-reveal="up">
@@ -102,45 +82,14 @@ export default function AboutPage() {
               style={{ '--d': '200ms' }}
             >
               <p>{about.mission.text}</p>
-              <p>
-                <T v={about.mission.story} />
-              </p>
+              <p>{about.mission.story}</p>
             </div>
           </div>
         </div>
       </Section>
 
-      {/* Team */}
+      {/* Founder note */}
       <Section tone="light" className="md:!py-32">
-        <div className="mx-auto max-w-3xl text-center">
-          <div data-reveal="up" className="flex justify-center">
-            <Eyebrow>{about.team.eyebrow}</Eyebrow>
-          </div>
-          <SplitText as="h2" className="mt-6 text-4xl md:text-6xl">
-            {about.team.title}
-          </SplitText>
-        </div>
-        <ul
-          data-reveal="stagger"
-          style={{ '--d': '150ms' }}
-          className="mt-14 grid grid-cols-2 gap-x-4 gap-y-10 md:mt-20 md:grid-cols-4 md:gap-x-6"
-        >
-          {about.team.members.map((m) => (
-            <li key={m.id}>
-              <MemberPhoto id={m.photo} name={m.name.text ?? m.name} />
-              <p className="mt-4 text-lg text-white">
-                <T v={m.name} />
-              </p>
-              <p className="text-muted mt-1 text-sm">
-                <T v={m.role} />
-              </p>
-            </li>
-          ))}
-        </ul>
-      </Section>
-
-      {/* Founder quote */}
-      <Section tone="ink" atmos={2} className="md:!py-32">
         <div className="grid items-center gap-10 md:grid-cols-12 md:gap-16">
           <div className="md:col-span-5">
             <MediaImage
@@ -152,13 +101,18 @@ export default function AboutPage() {
             />
           </div>
           <figure className="md:col-span-7">
-            <Icon name="quote" className="text-olive-hi size-10" />
+            <div data-reveal="up" className="flex items-center gap-4">
+              <Icon name="quote" className="text-olive-hi size-9" />
+              <Eyebrow>{about.quote.eyebrow}</Eyebrow>
+            </div>
             <blockquote
               data-reveal="up"
               style={{ '--d': '150ms' }}
-              className="font-heading mt-6 text-3xl leading-[1.2] text-white md:text-4xl"
+              className="font-heading mt-7 space-y-5 text-2xl leading-[1.3] text-white md:text-[1.85rem]"
             >
-              <T v={about.quote.text} />
+              {about.quote.text.map((para) => (
+                <p key={para}>{para}</p>
+              ))}
             </blockquote>
             <figcaption data-reveal="up" style={{ '--d': '300ms' }} className="mt-8">
               <span className="block text-white">
@@ -172,13 +126,29 @@ export default function AboutPage() {
         </div>
       </Section>
 
-      {/* What sets us apart */}
-      <Section tone="light" className="md:!py-32">
-        <div data-reveal="up">
-          <Eyebrow>Why MAEVEN</Eyebrow>
-          <h2 className="mt-6 max-w-3xl text-5xl md:text-7xl">What sets us apart</h2>
+      {/* What sets us apart (client wording) */}
+      <Section tone="olive" className="md:!py-32">
+        <div className="grid gap-10 md:grid-cols-12 md:items-end">
+          <div data-reveal="up" className="md:col-span-6">
+            <Eyebrow>Why MAEVEN</Eyebrow>
+            <h2 className="mt-6 text-5xl md:text-7xl">What sets us apart</h2>
+          </div>
+          <div data-reveal="up" style={{ '--d': '150ms' }} className="md:col-span-6">
+            <p className="font-heading text-2xl leading-snug text-white">{about.apart.lead}</p>
+            <p className="text-paper/75 mt-4 text-base leading-relaxed">{about.apart.text}</p>
+            <ul className="mt-6 flex flex-wrap gap-2">
+              {about.apart.tagline.map((t) => (
+                <li
+                  key={t}
+                  className="border-line text-paper/85 rounded-full border px-3.5 py-1.5 text-xs tracking-[0.12em] uppercase"
+                >
+                  {t}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
-        <ol className="mt-14 grid gap-x-10 md:mt-20 md:grid-cols-2 lg:grid-cols-4">
+        <ol className="mt-14 grid gap-x-10 md:mt-20 md:grid-cols-3">
           {about.principles.map((p, i) => (
             <li
               key={p.title}

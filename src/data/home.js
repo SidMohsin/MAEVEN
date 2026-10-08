@@ -27,7 +27,8 @@ export const home = {
   stats: [
     { value: ph('00+'), label: 'Brands served' },
     { value: ph('000+'), label: 'Shoots delivered' },
-    { value: ph('00'), label: 'Years of production' },
+    // client: "With over 10 years of experience in e-commerce photography" (About)
+    { value: '10+', label: 'Years of experience' },
     { value: ph('00K+'), label: 'Images delivered' },
   ],
 
