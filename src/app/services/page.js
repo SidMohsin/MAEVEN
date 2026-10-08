@@ -84,10 +84,10 @@ export default function ServicesPage() {
 
       <Section tone="olive" className="text-center md:!py-28">
         <SplitText as="h2" className="text-4xl md:text-5xl">
-          Ready to start your production?
+          Have a project in mind?
         </SplitText>
         <p data-reveal="up" style={{ '--d': '150ms' }} className="text-muted mt-5 text-lg">
-          Start with a conversation about what you need.
+          Tell us what you’re creating and we’ll get back to you within 3 hours.
         </p>
         <div data-reveal="up" style={{ '--d': '250ms' }} className="mt-9 flex justify-center">
           <Button href="/contact" arrow>
@@ -95,7 +95,10 @@ export default function ServicesPage() {
           </Button>
         </div>
         <p data-reveal="up" style={{ '--d': '350ms' }} className="text-muted mt-6 text-sm">
-          Or email directly: <T v={contact.email} className="text-white" />
+          Or call / WhatsApp:{' '}
+          <a href={contact.phoneHref} className="hover:text-olive-hi text-white transition-colors">
+            {contact.phone}
+          </a>
         </p>
       </Section>
 

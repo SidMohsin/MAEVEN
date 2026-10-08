@@ -32,7 +32,7 @@ export const contact = {
   city: 'Wrocław, Poland',
   address: 'Joachima Lelewela 4, Wrocław, Poland',
   social: [
-    { label: 'Instagram', href: 'https://www.instagram.com/studiox.pl' },
+    { label: 'Instagram', href: 'https://www.instagram.com/maeven.productions' },
     { label: 'Facebook', href: 'https://www.facebook.com/share/1GEzJQU6pU' },
   ],
 };
