@@ -140,11 +140,7 @@ STUDIO_PICKS = [
      'Laptop showing a full-length fashion photo in editing software', 'Still frame from the behind-the-scenes reel.'),
     ('bts-profile', 'Videos', '1.mov@13.5', 'topic', 'about',
      'Model in a grey hoodie in profile, looking down, in soft window light', 'Still frame from the behind-the-scenes reel.'),
-    ('bts-wardrobe', 'Videos', 'Sequence 02_1.MP4@2.6', 'topic', 'creative-brand',
-     'Stylist choosing shirts from a clothing rail before a shoot', 'Still frame from the behind-the-scenes sequence (logo-free part).'),
     # Services page: photo shown when a service card is pointed at / swiped to (closest real material).
-    ('bts-casting', 'Videos', 'Sequence 02_1.MP4@0.9', 'topic', 'enterprise-learning-video',
-     'Model in a cream turtleneck talking during a casting', 'Still frame from the behind-the-scenes sequence.'),
     # "WEBSITE ASSETS" folder (supplied for the website, named by use).
     ('wa-detail', 'WEBSITE ASSETS', 'DETAIL.jpg', 'detail', 'home',
      'Close-up of a khaki shirt pocket with a dark button', 'Detail shot.'),
@@ -154,8 +150,18 @@ STUDIO_PICKS = [
      'Beige double-breasted short coat photographed on a light background', 'Packshot.'),
     ('wa-editorial', 'WEBSITE ASSETS', 'EDITORIAL.jpg', 'topic', 'home',
      'Model in a dark technical jacket in a dark set with falling white particles', 'Editorial.'),
-    ('packshot-print-back', TEST, 'offwhite back.jpg', 'topic', 'design',
-     'Back of a black sweatshirt with a white script print', 'Packshot.'),
+    # Creative & Brand / Enterprise cards. Artboards are MAEVEN's own designs; each crop removes the
+    # old Studio X logo (and any "Studio X" text) completely.
+    ('wa-essentials', 'WEBSITE ASSETS', 'Copy of 2025.09.23_WITHTHENEW_5528 kopia 2.jpg', 'topic', 'branding',
+     'Light grey sweatshirt with a black Essentials print draped over a chrome chair', 'Supplied for the website.'),
+    ('design-poster', 'designs', 'Artboard 6@4x-100.jpg#crop=0,0.10,0.92,1', 'topic', 'design',
+     'Poster design: model in a tweed suit with the line Bringing your products to life', 'MAEVEN design artboard, logo cropped out.'),
+    ('design-mission', 'designs', 'Artboard 3@4x-100.jpg#crop=0,0.09,1,1', 'topic', 'content',
+     'Social post design: model seen from behind with the studio mission statement set beside her', 'MAEVEN design artboard, logo cropped out.'),
+    ('design-studio-set', 'designs', 'Artboard 2@4x-100.jpg#crop=0,0.08,0.60,0.62', 'topic', 'enterprise-learning-video',
+     'Studio production set with softboxes, a boom light and a monitor', 'MAEVEN design artboard, cropped to the photo only.'),
+    ('neon-wall-lean', NEON, 'DSC_4594.JPG', 'topic', 'campaign-strategy',
+     'Two models in grey tracksuits leaning diagonally against a brick wall at night, lit by flash', 'Neon night shoot.'),
 ]
 
 # Optional focal point (CSS object-position) so tight crops keep the subject in frame.
@@ -189,7 +195,15 @@ def load_folder_image(folder, fname):
         frame = subprocess.run(['ffmpeg', '-v', 'error', '-ss', t, '-i', str(folder / name), '-frames:v', '1',
                                 '-f', 'image2pipe', '-vcodec', 'png', '-'], check=True, capture_output=True).stdout
         return Image.open(io.BytesIO(frame)).convert('RGB')
+    crop = None
+    if '#crop=' in fname:  # "file.jpg#crop=x0,y0,x1,y1" (fractions): cut away e.g. an old logo
+        fname, c = fname.split('#crop=')
+        crop = [float(v) for v in c.split(',')]
     path = folder / fname
+    if crop:
+        im = ImageOps.exif_transpose(Image.open(path)).convert('RGB')
+        w, h = im.size
+        return im.crop((round(crop[0] * w), round(crop[1] * h), round(crop[2] * w), round(crop[3] * h)))
     if not path.exists():
         sys.exit(f'Not found: {path}')
     return ImageOps.exif_transpose(Image.open(path)).convert('RGB')

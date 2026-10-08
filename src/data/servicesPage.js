@@ -50,7 +50,7 @@ export const SERVICE_BLOCKS = [
       'ai-video-film': { video: 'ai-video-film' },
       'ai-content-creation': { video: 'ai-content-creation' },
       'product-retail-video': { video: 'product-retail-video' },
-      'enterprise-learning-video': 'bts-casting',
+      'enterprise-learning-video': 'design-studio-set',
       // client renders (AR_3D folder): virtual store walkthrough, 3D bag turntable
       'ar-vr-immersive': { video: 'ar-vr-immersive' },
       '3d-visualization': { video: '3d-visualization' },
@@ -64,10 +64,10 @@ export const SERVICE_BLOCKS = [
     label: 'Campaign shoot',
     topics: ['branding', 'design', 'content', 'campaign-strategy'],
     media: {
-      branding: 'tfc-lace',
-      design: 'packshot-print-back',
-      content: 'bts-wardrobe',
-      'campaign-strategy': 'neon-street-walk',
+      branding: 'wa-essentials',
+      design: 'design-poster',
+      content: 'design-mission',
+      'campaign-strategy': 'neon-wall-lean',
     },
   },
 ];
