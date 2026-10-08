@@ -14,3 +14,6 @@ out/
 # raw client assets never go in git
 Source_Materials/*.zip
 asset-raw/
+
+# Office lock files
+~$*

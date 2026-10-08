@@ -3,10 +3,7 @@ import Hero from '@/components/home/Hero';
 import StatsBar from '@/components/home/StatsBar';
 import ClientMarquee from '@/components/home/ClientMarquee';
 import Experts from '@/components/home/Experts';
-import CaseStudies from '@/components/home/CaseStudies';
 import PortfolioMosaic from '@/components/home/PortfolioMosaic';
-import Results from '@/components/home/Results';
-import Testimonials from '@/components/home/Testimonials';
 import ProcessSteps from '@/components/home/ProcessSteps';
 import HomeContact from '@/components/home/HomeContact';
 import { home } from '@/data/home';
@@ -20,8 +17,9 @@ export const metadata = {
 
 /**
  * Home follows GoPackshot's section order, in MAEVEN's design:
- *   video hero + trusted by · stats bar · brands strip · what we do (3 blocks) · case studies ·
- *   portfolio · results · testimonials · how we work (5 steps) · contact · continue exploring.
+ *   video hero · stats bar · brand logos · what we do (3 blocks) · portfolio · process (6 steps,
+ *   wording from thestudiox.pl) · contact · continue exploring.
+ * (Case studies, results and testimonials were removed at the client's request.)
  * All content lives in data/home.js; placeholders are marked ph('...').
  */
 export default function HomePage() {
@@ -31,10 +29,7 @@ export default function HomePage() {
       <StatsBar stats={home.stats} tone="olive" />
       <ClientMarquee eyebrow={home.partners.eyebrow} atmos={1} />
       <Experts experts={home.experts} tone="ink" atmos={2} />
-      <CaseStudies cases={home.cases} />
       <PortfolioMosaic portfolio={home.portfolio} />
-      <Results results={home.results} tone="olive" />
-      <Testimonials testimonials={home.testimonials} />
       <ProcessSteps process={home.process} tone="light" />
       <HomeContact data={home.contact} tone="ink" atmos={2} />
       <ContinueExploring

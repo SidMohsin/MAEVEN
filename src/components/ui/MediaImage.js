@@ -58,9 +58,10 @@ export default function MediaImage({
               alt={asset.alt}
               fill
               sizes={sizes}
-              // priority="eager": high-priority eager load without a preload hint
+              // priority="eager": load immediately but without a preload hint (React adds a
+              // preload for fetchPriority="high", which warns when the image is in a hidden layout)
               priority={priority === true}
-              {...(priority === 'eager' ? { loading: 'eager', fetchPriority: 'high' } : {})}
+              {...(priority === 'eager' ? { loading: 'eager' } : {})}
               style={asset.focus ? { objectPosition: asset.focus } : undefined}
               className={`object-cover ${position} transition-transform duration-[1200ms] ease-[var(--ease-expo)] [@media(hover:hover)]:group-hover/media:scale-[1.05]`}
             />

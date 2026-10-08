@@ -478,7 +478,11 @@
   .marquee-track > ul:first-child {
     flex-wrap: wrap;
     justify-content: center;
-    row-gap: 1rem;
+    row-gap: 1.75rem;
+    /* the list must be allowed to shrink to the strip's width, or it never wraps */
+    flex-shrink: 1;
+    width: 100%;
+    min-width: 0;
   }
   .marquee-track > [aria-hidden='true'] {
     display: none;

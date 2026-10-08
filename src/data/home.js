@@ -13,18 +13,15 @@ import { ph } from '../lib/content.js';
  */
 export const home = {
   hero: {
-    // design: "Bringing your products to life"
-    title: ['Bringing your products', 'to life.'],
-    // design (trimmed): "From on-model images and videos to packshots, we deliver high-quality visuals…"
-    text: 'From on-model images and videos to packshots, we deliver high-quality visuals that make your products stand out.',
+    // client: headline and line (material request, Home)
+    title: ['Where Content, Technology', '& Brands Come Together'],
+    text: 'From pre-production to post-production, powered by creativity and Smart Tech AI',
     video: {
       landscape: { src: '/video/hero-landscape.mp4', poster: '/video/hero-landscape-poster.jpg' },
       portrait: { src: '/video/hero-portrait.mp4', poster: '/video/hero-portrait-poster.jpg' },
       label: 'Behind the scenes',
       detail: 'In the studio, shoot day',
     },
-    trustedLabel: 'Trusted by',
-    trustedCount: 5, // how many client names to show in the hero (from data/clients.js)
   },
 
   stats: [
@@ -38,16 +35,16 @@ export const home = {
 
   experts: {
     eyebrow: 'What we do',
-    // design: mission ("…handling every aspect of the production process")
-    title: 'Every part of the production, under one roof.',
-    text: 'A production house for fashion and e-commerce brands, working across Europe and beyond.',
+    // client (material request, Home · what we do)
+    title: 'From Concept · Through Production · To Final Frame',
+    text: 'Photography, film and digital content crafted for websites, social media, advertising, and every brand touchpoint.',
     blocks: [
       {
-        image: 'studio-seated-denim',
+        image: 'onmodel-floral',
         badge: 'On-model · Packshot · Video',
-        title: 'From on-model images and videos to packshots',
-        // design
-        text: "We deliver high-quality visuals that make your products stand out in today's competitive market.",
+        // client (material request, block 1)
+        title: 'From packshots and on-model to videos.',
+        text: 'Packshots, films, model shoots and live content produced from concept to final delivery, combining creative production, post-production and Smart Tech AI where it adds value.',
         points: [
           'On-model photography and video',
           'Packshots and detail shots',
@@ -57,9 +54,9 @@ export const home = {
       {
         image: 'bts-styling',
         badge: 'Pre-production to post',
-        title: 'We handle every aspect of the production',
-        // design: mission
-        text: 'We empower our clients to focus on their core business by handling every aspect of the production process.',
+        // client (material request, block 2)
+        title: 'Every aspect of production, under one roof.',
+        text: 'From the first scroll to the final frame, we create visual content that brings your brand to life across every touchpoint.',
         points: [
           'Planning, styling and casting',
           'Shoot days in the studio and on location',
@@ -69,69 +66,19 @@ export const home = {
       {
         image: 'post-retouch-screen',
         badge: 'Post-production', // what the photo shows (retouching on screen)
-        title: 'Production expertise, with AI and CGI',
-        // services: AI Video & Film description
-        text: 'We combine AI, CGI, and production expertise to create visually compelling content at scale.',
+        // client (material request, block 3)
+        title: 'Production expertise, powered by Smart Tech and CGI.',
+        text: 'We combine the craft of production with the possibilities of Smart Tech AI, CGI and digital technology to create new ways for brands to tell their stories.',
         points: ['AI video and film', '3D and visualization', 'AR, VR and immersive experiences'],
-      },
-    ],
-  },
-
-  cases: {
-    eyebrow: 'Case studies',
-    title: 'Content for brands across Europe.',
-    text: 'A few of the brands we produce for, and what we delivered.',
-    items: [
-      {
-        client: 'The Female Company',
-        image: 'tfc-cami',
-        challenge: ph(
-          'Two to three sentences on what the client needed: products, volume, channels and timing.',
-        ),
-        solution: ph(
-          'Two to three sentences on what MAEVEN did: services, team, workflow and turnaround.',
-        ),
-        stats: [
-          { value: ph('000'), label: ph('Products photographed') },
-          { value: ph('00h'), label: ph('Turnaround') },
-        ],
-      },
-      {
-        // Brand not confirmed for this photo: name the client when the case material arrives.
-        client: ph('Client brand'),
-        image: 'packshot-jacket',
-        challenge: ph(
-          'Two to three sentences on what the client needed: products, volume, channels and timing.',
-        ),
-        solution: ph(
-          'Two to three sentences on what MAEVEN did: services, team, workflow and turnaround.',
-        ),
-        stats: [
-          { value: ph('000'), label: ph('Products photographed') },
-          { value: ph('0'), label: ph('Collections') },
-        ],
-      },
-      {
-        client: ph('Client brand'),
-        image: 'pink-ball-banner',
-        challenge: ph(
-          'Two to three sentences on what the client needed: products, volume, channels and timing.',
-        ),
-        solution: ph(
-          'Two to three sentences on what MAEVEN did: services, team, workflow and turnaround.',
-        ),
-        stats: [
-          { value: ph('000'), label: ph('Looks shot') },
-          { value: ph('00'), label: ph('Shoot days') },
-        ],
       },
     ],
   },
 
   portfolio: {
     eyebrow: 'Portfolio',
-    title: 'Made in the studio and on location.',
-    text: 'From night-time campaigns to clean e-commerce packshots.',
+    // client (material request, Home · portfolio)
+    title: 'Crafted in the studio. Made for every channel.',
+    text: 'MAEVEN Productions brings photography, film, smart technology and brand work together in one production studio.',
     // Mosaic order matters (see PortfolioMosaic): big tile first.
     tiles: [
       { image: 'neon-pink-street', label: 'Lifestyle & Campaign' },
@@ -144,74 +91,35 @@ export const home = {
     ],
   },
 
-  results: {
-    eyebrow: 'Results',
-    title: 'What our work changes.',
-    text: ph('One sentence on the outcomes MAEVEN drives for its clients.'),
-    items: [
-      {
-        value: ph('+00%'),
-        title: ph('Conversion lift'),
-        text: ph('Where the number comes from and how it was measured.'),
-      },
-      {
-        value: ph('-00%'),
-        title: ph('Fewer returns'),
-        text: ph('Where the number comes from and how it was measured.'),
-      },
-      {
-        value: ph('00%'),
-        title: ph('Faster to market'),
-        text: ph('Where the number comes from and how it was measured.'),
-      },
-    ],
-  },
-
-  testimonials: {
-    eyebrow: 'Client voices',
-    title: 'What our clients say.',
-    items: [1, 2, 3, 4].map((n) => ({
-      id: n,
-      brand: ph('Client brand'),
-      headline: ph('Result in one line'),
-      quote: ph(
-        'A short quote from the client about working with MAEVEN: what they needed, and what changed.',
-      ),
-      name: ph('Name Surname'),
-      role: ph('Role, Company'),
-    })),
-  },
-
+  // Steps and wording taken verbatim from thestudiox.pl ("Our simple process"), as the client asked.
   process: {
-    eyebrow: 'How we work',
-    title: 'From brief to delivery in five clear steps.',
-    text: 'Every project follows the same path, scoped to what you need.',
+    eyebrow: 'Process',
+    title: 'Our simple process',
+    text: 'A simple, structured workflow from concept to final delivery. Built for fast, consistent e-commerce production.',
     steps: [
       {
-        title: 'Brief & scope',
-        text: 'We map what you need: products, channels, formats and deadlines.',
-        fact: ph('0 days to set up'),
+        title: 'Consultation',
+        text: 'We understand your products, goals and visual direction to align on the right output.',
       },
       {
-        title: 'Pre-production',
-        text: 'Concept, styling, casting, locations and shot lists, planned before the shoot.',
-        fact: ph('One dedicated producer'),
+        title: 'Planning',
+        text: 'We define the shoot setup, styling and required deliverables for your e-commerce store.',
       },
       {
         title: 'Production',
-        text: 'On-model, packshot and video, shot in the studio or on location.',
-        fact: ph('Up to 000 products a day'),
+        text: 'We capture your products in a controlled studio environment with a focus on consistency, detail and quality at scale.',
       },
       {
-        title: 'Post-production',
-        // services: Post-Production description
-        text: 'Editing, color finishing, graphics, and infographic integration.',
-        fact: ph('Every image checked'),
+        title: 'Post-Production',
+        text: 'We refine and optimise images for e-commerce use, keeping them clean, accurate and ready to sell. Any necessary retouching or adjustments are included at no additional cost.',
+      },
+      {
+        title: 'Review',
+        text: 'You review the results and share any final feedback or changes needed.',
       },
       {
         title: 'Delivery',
-        text: 'Final files delivered ready for every channel and platform.',
-        fact: ph('All formats included'),
+        text: 'Final images are delivered ready to use across all e-commerce channels.',
       },
     ],
   },

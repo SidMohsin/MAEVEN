@@ -6,6 +6,7 @@ import { assets } from '../src/data/assets.js';
 import { home } from '../src/data/home.js';
 import { about } from '../src/data/about.js';
 import { SERVICE_BLOCKS } from '../src/data/servicesPage.js';
+import { clients } from '../src/data/clients.js';
 
 const assetIds = new Set(assets.map((a) => a.id));
 
@@ -26,7 +27,6 @@ for (const src of [landscape?.src, landscape?.poster, portrait?.src, portrait?.p
 // Image ids used by Home and About content must be curated assets.
 const pageImages = [
   ...home.experts.blocks.map((b) => b.image),
-  ...home.cases.items.map((c) => c.image),
   ...home.portfolio.tiles.map((t) => t.image),
   ...about.images,
   about.quote.image,
@@ -38,7 +38,6 @@ for (const id of pageImages) {
 // About must not repeat a Home photo.
 const homeImages = new Set([
   ...home.experts.blocks.map((b) => b.image),
-  ...home.cases.items.map((c) => c.image),
   ...home.portfolio.tiles.map((t) => t.image),
 ]);
 for (const id of [...about.images, about.quote.image].filter(Boolean)) {
@@ -115,8 +114,16 @@ const usedOnPages = new Set([
 for (const p of pillars) {
   for (const t of p.topics.filter((x) => x.detailPage)) {
     for (const id of [t.hero ?? t.image, ...(t.gallery ?? [])]) {
-      if (usedOnPages.has(id)) errors.push(`/services/${t.slug}: ${id} is also used on another page`);
+      if (usedOnPages.has(id))
+        errors.push(`/services/${t.slug}: ${id} is also used on another page`);
     }
+  }
+}
+
+// Client logos exist.
+for (const c of clients) {
+  if (c.logo && !existsSync(fileURLToPath(new URL(`../public${c.logo}`, import.meta.url)))) {
+    errors.push(`Client ${c.name}: missing logo public${c.logo}`);
   }
 }
 

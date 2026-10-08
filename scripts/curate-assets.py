@@ -76,6 +76,8 @@ PICKS = [
      'Close-up of a leather bag interior with a brass zip', 'Hi-res detail shot.'),
     ('detail-knit-collar', PS, '2026.03.04_WAD_1415.jpg', 'detail', 'e-com-production',
      'Close-up of a black knit collar with small buttons and a woven label', '1600x2400.'),
+    ('onmodel-floral', CO, 'Copy of 2026.03.23_WTN_model_packshot2114.jpg', 'topic', 'home',
+     'Model with glasses in a black hoodie and joggers with a white floral print, on a grey studio backdrop', 'On-model, studio. Home "What we do".'),
 ]
 
 # From the "studio X" folder. (id, folder, file, role, topic slug, alt text, note). A file ending in
@@ -163,6 +165,7 @@ FOCUS = {
     'night-street-hero': '50% 45%',
     'neon-pink-street': '50% 55%',
     'neon-montaz': '50% 55%',
+    'onmodel-floral': '50% 18%',
 }
 
 

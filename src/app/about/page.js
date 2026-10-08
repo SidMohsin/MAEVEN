@@ -77,7 +77,6 @@ export default function AboutPage() {
           need="Studio image"
           rows={[[wide, square]]}
           mobileRows={[[wide], [square]]}
-          priority
         />
       </Section>
 
