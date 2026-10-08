@@ -41,9 +41,18 @@ REEL = ('Videos/1.mov', 2.9, 13.1)
 # jumps), which would otherwise flicker; removing one frame is invisible as motion.
 SERVICE_VIDEOS = [
     ('video-film', 'footage/DSC_6075.MOV', 2, 146, [55, 101]),            # model turning on set
-    ('product-retail-video', 'footage/DSC_5944.MOV', 0, 101, [43, 80, 81]),   # model on set by the softbox
 ]
 LOOP_FADE = 0.6
+
+# AI work supplied for the website ("WEBSITE ASSETS" folder): (slug, file, start, duration, fit, arg)
+# fit 'crop' fills the 4:5 frame with the window at height `arg` (0 = top, 1 = bottom);
+# 'pad' keeps the whole frame on a background colour `arg`. Looped with a crossfade.
+WA = 'WEBSITE ASSETS/'
+SERVICE_SUPPLIED = [
+    ('ai-video-film', WA + 'AI VIDEO & FILM.mp4', 0.3, 10.0, 'crop', 0.5),        # shoe ad film
+    ('ai-content-creation', WA + 'AI CONTENT CREATIOPN.mp4', 1.2, 10.0, 'crop', 0.12),  # AI model; keep the head in frame
+    ('product-retail-video', WA + 'PRODUCT VIDEO.mp4', 0.0, 10.0, 'pad', 'black'),  # jeans 360 on black
+]
 
 # Smart Tech renders supplied by the client (AR_3D folder): whole clip, looped with a crossfade.
 # fit 'crop' fills the 4:5 frame (centre, away from the corner badge); 'pad' keeps the object
@@ -86,9 +95,29 @@ def service_render(slug, f, fit, color, out_dir):
     return out
 
 
+def service_supplied(slug, f, start, dur, fit, arg, out_dir):
+    out = out_dir / f'{slug}.mp4'
+    x = LOOP_FADE
+    size = (f'scale=720:900:force_original_aspect_ratio=increase,crop=720:900:(iw-720)/2:(ih-900)*{arg}'
+            if fit == 'crop' else
+            f'scale=720:900:force_original_aspect_ratio=decrease,pad=720:900:(ow-iw)/2:(oh-ih)/2:color={arg}')
+    chain = (f'[0:v]{size},fps=30,format=yuv420p,setsar=1,split[a][b];'
+             f'[b]trim=0:{x},setpts=PTS-STARTPTS[head];'
+             f'[a]trim={x}:{dur:.3f},setpts=PTS-STARTPTS[body];'
+             f'[body][head]xfade=transition=fade:duration={x}:offset={dur - 2 * x:.3f}[v]')
+    run(['-ss', str(start), '-t', f'{dur:.3f}', '-i', str(RAW / f), '-filter_complex', chain, '-map', '[v]',
+         '-an', '-map_metadata', '-1', '-c:v', 'libx264', '-preset', 'slow', '-crf', '24',
+         '-movflags', '+faststart', str(out)])
+    return out
+
+
 def build_service_videos():
     out_dir = OUT / 'services'
     out_dir.mkdir(parents=True, exist_ok=True)
+    for c in SERVICE_SUPPLIED:
+        out = service_supplied(*c, out_dir)
+        poster(out, out_dir / f'{c[0]}-poster.jpg')
+        print('services/' + out.name, round(out.stat().st_size / 1e3), 'KB')
     for c in SERVICE_RENDERS:
         out = service_render(*c, out_dir)
         poster(out, out_dir / f'{c[0]}-poster.jpg')

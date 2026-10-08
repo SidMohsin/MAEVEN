@@ -46,8 +46,9 @@ export const SERVICE_BLOCKS = [
       '3d-visualization',
     ],
     media: {
-      'ai-video-film': 'bts-tethered',
-      'ai-content-creation': 'bts-portrait-bw',
+      // supplied AI work (WEBSITE ASSETS folder)
+      'ai-video-film': { video: 'ai-video-film' },
+      'ai-content-creation': { video: 'ai-content-creation' },
       'product-retail-video': { video: 'product-retail-video' },
       'enterprise-learning-video': 'bts-casting',
       // client renders (AR_3D folder): virtual store walkthrough, 3D bag turntable

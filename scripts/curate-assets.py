@@ -143,10 +143,6 @@ STUDIO_PICKS = [
     ('bts-wardrobe', 'Videos', 'Sequence 02_1.MP4@2.6', 'topic', 'creative-brand',
      'Stylist choosing shirts from a clothing rail before a shoot', 'Still frame from the behind-the-scenes sequence (logo-free part).'),
     # Services page: photo shown when a service card is pointed at / swiped to (closest real material).
-    ('bts-tethered', 'Videos', 'Sequence 02_1.MP4@9.1', 'topic', 'ai-video-film',
-     'Studio monitor showing a portrait just captured on set', 'Still frame from the behind-the-scenes sequence.'),
-    ('bts-portrait-bw', 'Videos', '1.mov@9.5', 'topic', 'ai-content-creation',
-     'Black and white portrait of a blonde model in a white top', 'Still frame from the behind-the-scenes reel.'),
     ('bts-casting', 'Videos', 'Sequence 02_1.MP4@0.9', 'topic', 'enterprise-learning-video',
      'Model in a cream turtleneck talking during a casting', 'Still frame from the behind-the-scenes sequence.'),
     # "WEBSITE ASSETS" folder (supplied for the website, named by use).
