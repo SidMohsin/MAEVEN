@@ -12,18 +12,22 @@ export const metadata = {
   alternates: { canonical: '/contact' },
 };
 
-// draft: a generic outline of what happens after an inquiry. No response-time or pricing claims.
+// client: what happens after an inquiry ("meeting, then test shoot"). Step 1 wording is the
+// client's; steps 2 and 3 are short drafts of the same answer.
 const steps = [
-  { title: 'Your inquiry', text: 'Tell us what you need and roughly when.' },
-  { title: 'A conversation', text: 'We follow up to understand the scope in detail.' },
-  { title: 'Next steps', text: 'An outline of how the project could run.' },
+  {
+    title: 'Tell us about your project',
+    text: 'Share what you’re looking to create, your requirements and your approximate timeline.',
+  },
+  { title: 'A meeting', text: 'We meet to talk through the scope, style and deliverables.' },
+  { title: 'A test shoot', text: 'We shoot a test to agree the look before production starts.' },
 ];
 
 const details = [
   { label: 'Email', value: contact.email },
-  { label: 'Phone', value: contact.phone },
+  { label: 'Phone / WhatsApp', value: contact.phone, href: contact.phoneHref },
   { label: 'Studio', value: contact.address },
-  { label: 'Hours', value: { text: 'Mon–Fri, 09:00–17:00', placeholder: true } },
+  { label: 'Response time', value: 'Within 3 hours' },
 ];
 
 /**
@@ -43,10 +47,10 @@ export default function ContactPage() {
           className="rise mt-6 max-w-5xl text-6xl leading-[0.98] md:text-8xl lg:text-[8.5rem] lg:leading-[0.95]"
           style={{ '--d': '90ms' }}
         >
-          Let’s work together
+          Have something in mind?
         </h1>
         <p className="rise text-muted mt-6 max-w-xl text-lg" style={{ '--d': '200ms' }}>
-          Tell us about your project, and we’ll take it from there.
+          From the first idea to the final frame, let’s create it together.
         </p>
 
         <ol
@@ -94,7 +98,16 @@ export default function ContactPage() {
                   <div key={d.label} className="border-line border-b py-6">
                     <dt className="text-paper/60 text-xs tracking-[0.16em] uppercase">{d.label}</dt>
                     <dd className="mt-3 text-white">
-                      <T v={d.value} />
+                      {d.href ? (
+                        <a
+                          href={d.href}
+                          className="hover:text-olive-hi transition-colors duration-300"
+                        >
+                          {d.value}
+                        </a>
+                      ) : (
+                        <T v={d.value} />
+                      )}
                     </dd>
                   </div>
                 ))}

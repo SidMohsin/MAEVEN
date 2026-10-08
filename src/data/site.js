@@ -10,8 +10,8 @@ export const site = {
   name: 'MAEVEN Productions',
   shortName: 'MAEVEN',
   url: process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000',
-  // design: "Bringing your products to life"
-  tagline: 'Bringing your products to life.',
+  // client (footer tagline)
+  tagline: 'Creating beyond the frames',
   description: null,
 };
 
@@ -22,17 +22,18 @@ export const nav = [
   { label: 'Contact', href: '/contact', cta: true },
 ];
 
+// client (material request, section 9). Email still to be confirmed; legal name / tax ID are not
+// shown for now (client: "not needed now").
 export const contact = {
   email: ph('hello@yourdomain.com'),
-  phone: ph('+48 000 000 000'),
-  // design: Wrocław. Street address still to be supplied.
+  phone: '+48 791 417 023',
+  phoneHref: 'tel:+48791417023',
+  whatsapp: 'https://wa.me/48791417023',
   city: 'Wrocław, Poland',
-  address: ph('Street 00, 00-000 Wrocław, Poland'),
-  legalName: ph('MAEVEN Productions Sp. z o.o.'),
-  taxId: ph('NIP 000-000-00-00'),
+  address: 'Joachima Lelewela 4, Wrocław, Poland',
   social: [
-    { label: 'Instagram', href: null },
-    { label: 'LinkedIn', href: null },
+    { label: 'Instagram', href: 'https://www.instagram.com/studiox.pl' },
+    { label: 'Facebook', href: 'https://www.facebook.com/share/1GEzJQU6pU' },
   ],
 };
 

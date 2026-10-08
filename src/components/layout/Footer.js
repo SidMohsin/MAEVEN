@@ -54,20 +54,18 @@ export default function Footer() {
             Studio
           </h2>
           <address className="text-paper/80 mt-5 space-y-2 text-sm not-italic">
-            <p className="font-medium text-white">
-              <T v={contact.legalName} />
-            </p>
-            <p>
-              <T v={contact.address} />
-            </p>
+            <p className="font-medium text-white">{site.name}</p>
+            <p>{contact.address}</p>
             <p>
               <T v={contact.email} />
             </p>
             <p>
-              <T v={contact.phone} />
-            </p>
-            <p className="text-paper/50 text-xs">
-              <T v={contact.taxId} />
+              <a
+                href={contact.phoneHref}
+                className="hover:text-olive-hi transition-colors duration-200"
+              >
+                {contact.phone}
+              </a>
             </p>
           </address>
         </div>
@@ -82,7 +80,12 @@ export default function Footer() {
             {contact.social.map((s) => (
               <li key={s.label}>
                 {s.href ? (
-                  <a href={s.href} className="hover:text-olive-hi transition-colors duration-200">
+                  <a
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-olive-hi transition-colors duration-200"
+                  >
                     {s.label}
                   </a>
                 ) : (

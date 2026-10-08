@@ -127,7 +127,8 @@ export const home = {
 
   contact: {
     eyebrow: 'Contact',
-    title: 'Start a conversation.',
-    response: ph('within 24 hours'),
+    // client
+    title: 'Have an idea? Let’s make it happen',
+    response: 'within 3 hours',
   },
 };

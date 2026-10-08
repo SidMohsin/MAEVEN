@@ -10,7 +10,7 @@ import { getPillars } from '@/lib/services';
 export default function HomeContact({ data, tone, atmos }) {
   const details = [
     { label: 'Email', value: contact.email },
-    { label: 'Phone', value: contact.phone },
+    { label: 'Phone', value: contact.phone, href: contact.phoneHref },
     { label: 'Studio', value: contact.city },
   ];
   return (
@@ -38,7 +38,13 @@ export default function HomeContact({ data, tone, atmos }) {
               >
                 <dt className="text-muted text-xs tracking-[0.16em] uppercase">{d.label}</dt>
                 <dd className="text-right text-white">
-                  <T v={d.value} />
+                  {d.href ? (
+                    <a href={d.href} className="hover:text-olive-hi transition-colors duration-300">
+                      {d.value}
+                    </a>
+                  ) : (
+                    <T v={d.value} />
+                  )}
                 </dd>
               </div>
             ))}

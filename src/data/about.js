@@ -45,8 +45,9 @@ export const about = {
       'MAEVEN exists to make great production simpler, more creative and more connected. We bring craft, technology and a strong production mindset together under one roof, so every client gets thoughtful collaboration, attention to detail and work they can be proud to put their name behind.',
       'That’s what you can expect from MAEVEN: clarity, craft and consistency, from the first brief to the final frame.',
     ],
-    name: ph('Name Surname'),
-    role: ph('Founder, MAEVEN Productions'),
+    // client: shown as "Founder", no name
+    name: 'Founder',
+    role: 'MAEVEN Productions',
     image: 'neon-window-pair',
   },
 
