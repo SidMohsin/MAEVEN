@@ -1,16 +1,18 @@
 import { pillars } from '@/data/services';
+import { ph } from '@/lib/content';
 
 /**
- * Site-wide facts. Anything not confirmed by the client is a placeholder:
- * `{ placeholder: true, label }` renders as a visible "client to supply" marker.
- * Never replace a placeholder with an invented value.
+ * Site-wide facts. Values the client has not supplied yet are placeholders written as `ph('...')`
+ * (see lib/content.js): shaped like the real thing so the layout is final, marked so they're easy
+ * to find. Replace them with the real values.
  */
 export const site = {
   name: 'MAEVEN Productions',
   shortName: 'MAEVEN',
-  // PLACEHOLDER: canonical domain not supplied. Used for metadata/sitemap only.
   url: process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000',
-  description: null, // PLACEHOLDER: official positioning line not supplied
+  // design: "Bringing your products to life"
+  tagline: 'Bringing your products to life.',
+  description: null,
 };
 
 /** Navbar: exactly these items. The logo links to Home. */
@@ -21,10 +23,17 @@ export const nav = [
 ];
 
 export const contact = {
-  email: { placeholder: true, label: 'Email address' },
-  phone: { placeholder: true, label: 'Phone number' },
-  address: { placeholder: true, label: 'Studio address' },
-  social: [], // PLACEHOLDER: no official social links supplied
+  email: ph('hello@yourdomain.com'),
+  phone: ph('+48 000 000 000'),
+  // design: Wrocław. Street address still to be supplied.
+  city: 'Wrocław, Poland',
+  address: ph('Street 00, 00-000 Wrocław, Poland'),
+  legalName: ph('MAEVEN Productions Sp. z o.o.'),
+  taxId: ph('NIP 000-000-00-00'),
+  social: [
+    { label: 'Instagram', href: null },
+    { label: 'LinkedIn', href: null },
+  ],
 };
 
 export const footerGroups = [
@@ -37,10 +46,7 @@ export const footerGroups = [
     links: [
       { label: 'About', href: '/about' },
       { label: 'Contact', href: '/contact' },
+      { label: 'Privacy', href: '/privacy' },
     ],
-  },
-  {
-    title: 'Legal',
-    links: [{ label: 'Privacy', href: '/privacy' }],
   },
 ];

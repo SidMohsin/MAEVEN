@@ -1,6 +1,6 @@
 import Section from '@/components/ui/Section';
 import Eyebrow from '@/components/ui/Eyebrow';
-import Placeholder from '@/components/ui/Placeholder';
+import T from '@/components/ui/T';
 import ContinueExploring from '@/components/ui/ContinueExploring';
 import ContactForm from '@/components/contact/ContactForm';
 import { contact } from '@/data/site';
@@ -23,6 +23,7 @@ const details = [
   { label: 'Email', value: contact.email },
   { label: 'Phone', value: contact.phone },
   { label: 'Studio', value: contact.address },
+  { label: 'Hours', value: { text: 'Mon–Fri, 09:00–17:00', placeholder: true } },
 ];
 
 /**
@@ -92,12 +93,8 @@ export default function ContactPage() {
                 {details.map((d) => (
                   <div key={d.label} className="border-line border-b py-6">
                     <dt className="text-paper/60 text-xs tracking-[0.16em] uppercase">{d.label}</dt>
-                    <dd className="mt-3">
-                      {d.value?.placeholder ? (
-                        <Placeholder label={d.value.label} />
-                      ) : (
-                        <span className="text-white">{d.value}</span>
-                      )}
+                    <dd className="mt-3 text-white">
+                      <T v={d.value} />
                     </dd>
                   </div>
                 ))}

@@ -18,7 +18,7 @@
  *   description: string,
  *   groups: ServiceGroup[],
  *   detailPage: boolean,
- *   image: string | null,      // asset id (see data/assets.js); null = image required
+ *   image: string | null,      // asset id (see data/assets.js): the photo shown for this service on /services
  *   hero?: string | null,      // detail-page hero asset id (wide); falls back to `image`
  *   gallery?: string[],        // supporting asset ids (detail page gallery)
  *   process?: { title: string, text: string }[], // only when real process content exists
@@ -41,7 +41,9 @@ export const pillars = [
     slug: 'content-production',
     number: '01',
     name: 'Content & Production',
-    intro: null, // PLACEHOLDER: pillar intro copy not in source material
+    // draft (summarises the topics below; no factual claim). Client to confirm.
+    intro:
+      'Photography, film, e-commerce content, post-production and audio: everything shot, edited and delivered for every channel.',
     banner: 'shadow-walk-banner',
     topics: [
       {
@@ -62,15 +64,19 @@ export const pillars = [
           },
         ],
         detailPage: true,
-        image: 'ball-pose',
-        hero: 'pink-ball-banner',
+        image: 'studio-portrait-hood',
+        hero: 'neon-pink-street',
         gallery: [
+          'neon-library',
+          'studio-portrait-tee',
+          'lifestyle-brick-full',
+          'studio-portrait-pose',
+          'rain-editorial',
           'pair-light-set',
           'shadow-portrait',
-          'rain-editorial',
-          'pair-back-front',
+          'ball-pose',
+          'neon-street-walk',
           'pink-ball-banner',
-          'brick-wall-banner',
         ],
       },
       {
@@ -91,7 +97,7 @@ export const pillars = [
           },
         ],
         detailPage: false,
-        image: null,
+        image: 'bts-camera',
       },
       {
         slug: 'e-com-production',
@@ -106,6 +112,13 @@ export const pillars = [
         detailPage: false,
         image: 'packshot-jeans',
         gallery: [
+          'tfc-cami',
+          'packshot-vest',
+          'tfc-lace',
+          'packshot-zip-knit',
+          'tfc-brief',
+          'detail-zip-knit',
+          'tfc-detail',
           'packshot-quilted-tote',
           'packshot-dress',
           'packshot-shirt',
@@ -125,7 +138,7 @@ export const pillars = [
           'Professional post-production services including editing, color finishing, graphics, and infographic integration.',
         groups: [{ items: items('Video editing') }],
         detailPage: false,
-        image: null,
+        image: 'post-retouch-screen',
       },
       {
         slug: 'audio',
@@ -134,7 +147,7 @@ export const pillars = [
         description: 'Voice and sound production for broadcast and digital.',
         groups: [{ items: items('Voice-over & radio') }],
         detailPage: false,
-        image: null,
+        image: 'bts-profile-light',
       },
     ],
   },
@@ -143,8 +156,10 @@ export const pillars = [
     slug: 'smart-tech',
     number: '02',
     name: 'Smart Tech',
-    intro: null, // PLACEHOLDER
-    banner: null, // image required: no suitable MAEVEN asset
+    // draft (summarises the topics below; no factual claim). Client to confirm.
+    intro:
+      'AI video, immersive experiences, 3D and creator content, combining AI, CGI and production expertise to create content at scale.',
+    banner: null,
     topics: [
       {
         slug: 'ai-video-film',
@@ -189,7 +204,7 @@ export const pillars = [
           },
         ],
         detailPage: false,
-        image: null,
+        image: 'bts-retouch-laptop',
       },
       {
         slug: 'ar-vr-immersive',
@@ -208,7 +223,7 @@ export const pillars = [
           },
         ],
         detailPage: false,
-        image: null,
+        image: 'rain-editorial',
       },
       {
         slug: '3d-visualization',
@@ -227,7 +242,7 @@ export const pillars = [
           },
         ],
         detailPage: false,
-        image: null,
+        image: 'packshot-quilted-tote',
       },
       {
         slug: 'ai-content-creation',
@@ -248,7 +263,7 @@ export const pillars = [
           },
         ],
         detailPage: false,
-        image: null,
+        image: 'bts-portrait-bw',
       },
       {
         slug: 'product-retail-video',
@@ -266,7 +281,7 @@ export const pillars = [
           },
         ],
         detailPage: false,
-        image: null,
+        image: 'bts-studio-set',
       },
       {
         slug: 'enterprise-learning-video',
@@ -286,7 +301,7 @@ export const pillars = [
           },
         ],
         detailPage: false,
-        image: null,
+        image: 'bts-photographer',
       },
       {
         slug: 'creator-ip-studio',
@@ -308,7 +323,7 @@ export const pillars = [
           },
         ],
         detailPage: false,
-        image: null,
+        image: 'bts-profile',
       },
       {
         slug: 'assets-niches',
@@ -327,7 +342,7 @@ export const pillars = [
           },
         ],
         detailPage: false,
-        image: null,
+        image: 'neon-modny-pair',
       },
     ],
   },
@@ -336,8 +351,10 @@ export const pillars = [
     slug: 'creative-brand',
     number: '03',
     name: 'Creative & Brand',
-    intro: null, // PLACEHOLDER
-    banner: null, // image required: no suitable MAEVEN asset
+    // draft (summarises the topics below; no factual claim). Client to confirm.
+    intro:
+      'Brand identity, design, content and campaign strategy that make brands instantly recognisable.',
+    banner: null,
     topics: [
       {
         slug: 'branding',
@@ -355,7 +372,7 @@ export const pillars = [
           },
         ],
         detailPage: false,
-        image: null,
+        image: 'lifestyle-brick-close',
       },
       {
         slug: 'design',
@@ -374,7 +391,7 @@ export const pillars = [
           },
         ],
         detailPage: false,
-        image: null,
+        image: 'tfc-cami',
       },
       {
         slug: 'content',
@@ -383,7 +400,7 @@ export const pillars = [
         description: 'Words and strategy that carry the brand voice.',
         groups: [{ items: items('Copywriting', 'Content strategy', 'Blog & editorial') }],
         detailPage: false,
-        image: null,
+        image: 'neon-cafe',
       },
       {
         slug: 'campaign-strategy',
@@ -394,7 +411,7 @@ export const pillars = [
           { items: items('Campaign ideation', 'Creative mandate & briefs', 'Concept creation') },
         ],
         detailPage: false,
-        image: null,
+        image: 'neon-pink-street',
       },
       {
         slug: 'insourcing',
@@ -403,7 +420,7 @@ export const pillars = [
         description: 'Embedded creative teams that scale with your brand.',
         groups: [{ items: items('Embedded creative teams', 'Dedicated brand studio') }],
         detailPage: false,
-        image: null,
+        image: 'bts-styling',
       },
     ],
   },

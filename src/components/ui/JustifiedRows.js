@@ -24,10 +24,13 @@ function Rows({ rows, className = '', need, fallbackRatio, reveal, priority, cap
       {rows.map((row, ri) => {
         const ratios = row.map((id) => ratioOf(id, fallbackRatio));
         const sum = ratios.reduce((a, b) => a + b, 0);
+        // flex-grow values that add up to less than 1 leave free space (e.g. a single portrait
+        // photo alone in a row), so scale them up until the row is always filled.
+        const grow = sum < 1 ? 1 / sum : 1;
         return (
           <div key={row.join('|')} data-image-row className="flex gap-3 md:gap-4">
             {row.map((id, i) => (
-              <div key={id ?? i} className="min-w-0" style={{ flex: `${ratios[i]} 1 0%` }}>
+              <div key={id ?? i} className="min-w-0" style={{ flex: `${ratios[i] * grow} 1 0%` }}>
                 <MediaImage
                   id={id}
                   need={need}
@@ -60,6 +63,9 @@ export default function JustifiedRows({
 }) {
   const shared = { need, fallbackRatio, reveal, priority, caption };
   if (!mobileRows) return <Rows rows={rows} className={className} {...shared} />;
+  // Two layouts are rendered (one hidden by CSS): load first-row images eagerly at high priority
+  // instead of preloading, so the hidden layout never triggers an unused-preload warning.
+  if (priority) shared.priority = 'eager';
   return (
     <div className={className}>
       <Rows rows={mobileRows} className="md:hidden" {...shared} />

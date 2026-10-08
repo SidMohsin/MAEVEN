@@ -1,7 +1,10 @@
 """
 Curate MAEVEN assets from the client zip into public/images + a generated manifest.
 
-  python scripts/curate-assets.py "<path to Maeven-assets.zip>"
+  python scripts/curate-assets.py "<path to Maeven-assets.zip>" "<path to studio X folder>"
+
+Sources: the first client zip (PICKS) and the later "studio X" folder from Kamil (STUDIO_PICKS;
+Studio X is MAEVEN's former brand name). Neither source is committed to Git.
 
 Outputs:
   public/images/*.jpg     processed images (committed to Git, served by Next.js)
@@ -15,14 +18,16 @@ frames with prominent third-party brand marks or street signage.
 """
 import io
 import json
+import subprocess
 import sys
 import zipfile
 from pathlib import Path
 
-from PIL import Image
+from PIL import Image, ImageOps
 
 Image.MAX_IMAGE_PIXELS = None
 ZIP = sys.argv[1] if len(sys.argv) > 1 else 'Source_Materials/Maeven-assets.zip'
+STUDIO = Path(sys.argv[2] if len(sys.argv) > 2 else 'D:/MAEVEN-raw/studio X')
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / 'public' / 'images'
 MAX_W = 2400
@@ -73,12 +78,84 @@ PICKS = [
      'Close-up of a black knit collar with small buttons and a woven label', '1600x2400.'),
 ]
 
+# From the "studio X" folder. (id, folder, file, role, topic slug, alt text, note). A file ending in
+# ".MOV@<seconds>" is a still frame taken from that video at that time.
+NEON, BTS, TFC, TEST, KAMIL = 'Neon Light Banner', '3rd shoot big studio', 'TFC', 'Test Packshots', 'Kaamil Photos'
+STUDIO_PICKS = [
+    ('neon-pink-street', NEON, 'DSC_4677.JPG', 'hero', 'home',
+     'Two models in grey tracksuits on a cobbled street under pink and red neon signs at night', 'Neon night shoot.'),
+    ('neon-montaz', NEON, 'DSC_4687.JPG', 'hero', 'home',
+     'Two models in grey tracksuits standing under blue and orange neon shop signs at night', 'Neon night shoot.'),
+    ('neon-modny-close', NEON, 'DSC_4622.JPG', 'topic', 'photography',
+     'Two models in grey hoodies posing close together under a green neon sign at night', 'Neon night shoot.'),
+    ('neon-cafe', NEON, 'DSC_4566.JPG', 'topic', 'photography',
+     'Two models in grey tracksuits sitting in a dimly lit cafe with bookshelves', 'Neon night shoot, interior.'),
+    ('neon-library', NEON, 'DSC_4570.JPG', 'topic', 'photography',
+     'Model in a grey hoodie leaning against a wall of bookshelves', 'Portrait.'),
+    ('neon-brick-step', NEON, 'DSC_4611.JPG', 'topic', 'photography',
+     'Two models in grey tracksuits stepping out along a brick wall at night, lit by flash', 'Neon night shoot.'),
+    ('neon-street-walk', NEON, 'DSC_4616.JPG', 'topic', 'photography',
+     'Two models in grey tracksuits walking hand in hand past an old building at dusk', 'Neon night shoot.'),
+    ('neon-modny-pair', NEON, 'DSC_4644.JPG', 'topic', 'photography',
+     'Two models in grey tracksuits posing under a large neon sign in a narrow street', 'Neon night shoot.'),
+    ('neon-window-pair', NEON, 'DSC_4583.JPG', 'topic', 'photography',
+     'Two models in grey tracksuits sitting on a brick window ledge at night', 'Neon night shoot.'),
+    ('bts-camera', BTS, 'IMG_0634.JPG', 'topic', 'video-film',
+     'Close-up of hands holding a camera, its screen showing a model on set', 'Behind the scenes.'),
+    ('bts-styling', BTS, 'IMG_0635.JPG', 'topic', 'about',
+     "Stylist adjusting a model's jacket on set beside a clothing rail", 'Behind the scenes.'),
+    ('studio-portrait-hood', BTS, 'IMG_0636.JPG', 'topic', 'photography',
+     'Studio portrait of a young man in an oatmeal hoodie against a white wall', 'On-model, studio.'),
+    ('studio-portrait-pose', BTS, 'IMG_0641.JPG', 'topic', 'photography',
+     'Model in an oatmeal hoodie leaning on a white wall with one hand in his hair', 'On-model, studio.'),
+    ('tfc-cami', TFC, 'EFC 7.jpg', 'topic', 'e-com-production',
+     'Blue ribbed camisole photographed on a pink background', 'The Female Company.'),
+    ('tfc-brief', TFC, 'EFC 2.jpg', 'topic', 'e-com-production',
+     'Blue ribbed briefs photographed on a pink background', 'The Female Company.'),
+    ('tfc-lace', TFC, 'EFC6.jpg', 'topic', 'e-com-production',
+     'Black briefs with lace panels photographed on a pink background', 'The Female Company.'),
+    ('tfc-detail', TFC, 'EFC 9.jpg', 'detail', 'e-com-production',
+     'Close-up of the straps and scalloped edge of a blue ribbed camisole', 'The Female Company, detail.'),
+    ('packshot-vest', TEST, '00000.jpg', 'topic', 'e-com-production',
+     'Black quilted gilet photographed on a white background', 'Packshot.'),
+    ('packshot-zip-knit', TEST, 'offwhite.jpg', 'topic', 'e-com-production',
+     'Grey half-zip knit sweater photographed on an off-white background', 'Packshot.'),
+    ('detail-zip-knit', TEST, 'detail.jpg', 'detail', 'e-com-production',
+     'Close-up of the zip and ribbed collar of a grey knit sweater', 'Detail.'),
+    ('studio-seated-denim', TEST, '2022-03-08 14.12.41.jpg', 'topic', 'photography',
+     'Model in a white T-shirt and blue jeans sitting on a chrome chair in the studio', 'On-model, studio.'),
+    ('studio-portrait-tee', TEST, '2022-03-08 14.20.50.jpg', 'topic', 'photography',
+     'Studio portrait of a model in a white T-shirt looking to the side', 'On-model, studio.'),
+    ('lifestyle-brick-close', KAMIL, 'Z70_0236.JPG', 'topic', 'photography',
+     'Man in a dark jacket with sunglasses on his head in front of a brick wall with graffiti', 'Lifestyle.'),
+    ('lifestyle-brick-full', KAMIL, 'Z70_0232.JPG', 'topic', 'photography',
+     'Man in a dark jacket standing in the doorway of a red brick building', 'Lifestyle.'),
+    ('post-retouch-screen', 'footage', 'DSC_6063.MOV@1.0', 'topic', 'post-production',
+     'Laptop screen showing a fashion photo being retouched', 'Still frame from behind-the-scenes footage.'),
+    # Behind-the-scenes stills for the Services page (frames checked: sharp, no Studio X mark;
+    # Videos/1.mov is only used between its logo intro and outro).
+    ('bts-retouch-laptop', 'Videos', '1.mov@11.5', 'topic', 'ai-video-film',
+     'Laptop showing a full-length fashion photo in editing software', 'Still frame from the behind-the-scenes reel.'),
+    ('bts-portrait-bw', 'Videos', '1.mov@9.5', 'topic', 'ai-content-creation',
+     'Black and white portrait of a blonde model in a white top', 'Still frame from the behind-the-scenes reel.'),
+    ('bts-profile', 'Videos', '1.mov@13.5', 'topic', 'creator-ip-studio',
+     'Model in a grey hoodie in profile, looking down, in soft window light', 'Still frame from the behind-the-scenes reel.'),
+    ('bts-profile-light', 'Videos', '1.mov@14.0', 'topic', 'audio',
+     'Model in profile with a soft blue light flare in the foreground', 'Still frame from the behind-the-scenes reel.'),
+    ('bts-studio-set', 'footage', 'DSC_6243.MOV@1.5', 'topic', 'product-retail-video',
+     'Model in jeans and a black top on a white studio set between softboxes and a monitor cart', 'Still frame from behind-the-scenes footage.'),
+    ('bts-photographer', 'footage', 'DSC_6262.MOV@1.5', 'topic', 'enterprise-learning-video',
+     'Photographer shooting a model in a denim skirt on a white studio set', 'Still frame from behind-the-scenes footage.'),
+]
+
 # Optional focal point (CSS object-position) so tight crops keep the subject in frame.
 FOCUS = {
     'shadow-walk-banner': '14% 50%',
     'pink-ball-banner': '68% 50%',
     'brick-wall-banner': '40% 50%',
     'night-street-hero': '50% 45%',
+    'neon-pink-street': '50% 55%',
+    'neon-montaz': '50% 55%',
 }
 
 
@@ -92,6 +169,30 @@ def load_zip_index(z):
         folder = parts[0].strip() if len(parts) > 1 else ''
         idx[(folder, parts[-1])] = e
     return idx
+
+
+def load_folder_image(folder, fname):
+    if '.mov@' in fname.lower():
+        name, t = fname.split('@')
+        frame = subprocess.run(['ffmpeg', '-v', 'error', '-ss', t, '-i', str(folder / name), '-frames:v', '1',
+                                '-f', 'image2pipe', '-vcodec', 'png', '-'], check=True, capture_output=True).stdout
+        return Image.open(io.BytesIO(frame)).convert('RGB')
+    path = folder / fname
+    if not path.exists():
+        sys.exit(f'Not found: {path}')
+    return ImageOps.exif_transpose(Image.open(path)).convert('RGB')
+
+
+def save(im, aid, alt, role, topic, source, note):
+    if im.width > MAX_W:
+        im = im.resize((MAX_W, round(im.height * MAX_W / im.width)), Image.LANCZOS)
+    im.save(OUT / f'{aid}.jpg', quality=84, optimize=True, progressive=True)  # EXIF dropped
+    return {
+        'id': aid, 'src': f'/images/{aid}.jpg', 'width': im.width, 'height': im.height,
+        'alt': alt, 'role': role, 'topic': topic, 'cleared': True,
+        'source': source, 'note': note,
+        **({'focus': FOCUS[aid]} if aid in FOCUS else {}),
+    }
 
 
 def main():
@@ -114,6 +215,10 @@ def main():
             **({'focus': FOCUS[aid]} if aid in FOCUS else {}),
         })
         print(f'{aid:28s} {im.width}x{im.height}')
+    for aid, folder, fname, role, topic, alt, note in STUDIO_PICKS:
+        im = load_folder_image(STUDIO / folder, fname)
+        manifest.append(save(im, aid, alt, role, topic, f'studio X/{folder}/{fname}', note))
+        print(f"{aid:28s} {manifest[-1]['width']}x{manifest[-1]['height']}")
     body = json.dumps(manifest, indent=2, ensure_ascii=False)
     header = (
         '// GENERATED by scripts/curate-assets.py: edit PICKS there, not here.\n'

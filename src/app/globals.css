@@ -183,6 +183,19 @@
 }
 
 /* Work rail: the track holds the set twice; moving by -50% loops seamlessly. */
+/* Services: the active card's top rule fills while its photo is shown. */
+@keyframes service-timer {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+.service-timer {
+  animation: service-timer var(--timer, 4500ms) linear both;
+}
+
 @keyframes rail-drift {
   to {
     transform: translate3d(-50%, 0, 0);
@@ -416,6 +429,18 @@
     width: max-content;
     animation: rail-drift var(--rail-dur, 80s) linear infinite;
   }
+  /* Client strip: same seamless loop, slower, pauses on hover. */
+  .marquee {
+    mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  }
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: rail-drift var(--marquee-dur, 45s) linear infinite;
+  }
+  .marquee:hover .marquee-track {
+    animation-play-state: paused;
+  }
   .rail:hover .rail-track,
   .rail:focus-within .rail-track,
   .rail[data-paused] .rail-track {
@@ -452,6 +477,23 @@
     animation: none !important;
   }
   .rail-track > [aria-hidden='true'] {
+    display: none;
+  }
+  /* Client strip becomes a static, wrapped list. */
+  .marquee {
+    mask-image: none;
+  }
+  .marquee-track {
+    animation: none !important;
+    width: auto;
+    justify-content: center;
+  }
+  .marquee-track > ul:first-child {
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 1rem;
+  }
+  .marquee-track > [aria-hidden='true'] {
     display: none;
   }
   .lift:hover {

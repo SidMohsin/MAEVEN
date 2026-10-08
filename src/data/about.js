@@ -1,13 +1,14 @@
+import { ph } from '../lib/content.js';
+
 /**
- * About page content.
- *
- * The supplied source material contains no company history, team, location, facilities, equipment,
- * clients or statistics, so none appear here. The story slot renders as a clearly marked
- * placeholder until the client supplies it.
+ * About page content, in GoPackshot's About order (design is MAEVEN's own):
+ *   hero · images · numbers · mission · team · founder quote · what sets us apart · brands.
  *
  * Copy labels (same convention as data/home.js):
- *  - `source`: taken from the service spreadsheet (data/services.js), quoted or lightly trimmed.
- *  - `draft`:  neutral wording with no factual claim; needs client approval.
+ *  - `design`:  wording from MAEVEN's own Studio X marketing artboards (Studio X = former name).
+ *  - `source`:  from the service spreadsheet (data/services.js), quoted or lightly trimmed.
+ *  - `draft`:   neutral wording with no factual claim; needs client approval.
+ *  - ph('...'): placeholder, shaped like the real thing; replace with client material.
  */
 export const about = {
   hero: {
@@ -17,22 +18,57 @@ export const about = {
     text: 'MAEVEN Productions brings photography, film, smart technology and brand work together in one production studio.',
   },
 
-  // Image band after the hero (asset ids): one wide, one square.
-  images: ['pink-ball-banner', 'rain-square'],
+  // Image band after the hero (asset ids): one wide, one portrait.
+  images: ['neon-cafe', 'bts-styling'],
 
-  story: {
-    // draft: story lead, no factual claim
-    lead: 'We make the visuals brands live on, and the brand work around them, for companies that need to be seen on every channel.',
-    // Placeholder: founding, team and studio location are not in the source material.
-    body: null,
+  stats: [
+    { value: ph('20XX'), label: 'Founded' },
+    { value: ph('00'), label: 'People in the team' },
+    { value: ph('00+'), label: 'Brands served' },
+    // design: the artboards place the studio in Wrocław
+    { value: 'Wrocław', label: 'Studio, Poland' },
+  ],
+
+  mission: {
+    eyebrow: 'Our mission',
+    // design (verbatim)
+    lead: 'Our mission is to be a leading European production house, renowned for our sharp, modern approach and seamless, high-quality production services.',
+    // design (verbatim)
+    text: 'We empower our clients to focus on their core business by handling every aspect of the production process.',
+    story: ph(
+      'Two or three sentences on how MAEVEN started: when, by whom, and how Studio X became MAEVEN Productions.',
+    ),
   },
 
-  // "Why MAEVEN": each principle is backed by a sentence from the service spreadsheet.
+  team: {
+    eyebrow: 'The team',
+    title: 'The people behind the production.',
+    // One card per person; photo = asset id when supplied (null shows a neutral silhouette).
+    members: [1, 2, 3, 4].map((n) => ({
+      id: n,
+      name: ph('Name Surname'),
+      role: ph(
+        ['Founder & CEO', 'Head of Production', 'Lead Photographer', 'Post-Production Lead'][n - 1],
+      ),
+      photo: null,
+    })),
+  },
+
+  quote: {
+    text: ph(
+      'A short statement from the founder on why MAEVEN exists and what every client should expect from the studio.',
+    ),
+    name: ph('Name Surname'),
+    role: ph('Founder, MAEVEN Productions'),
+    image: 'bts-camera',
+  },
+
+  // "What sets us apart": each point is backed by a sentence from the source material.
   principles: [
     {
       title: 'End to end',
-      // source: Video & Film summary; AI Video & Film description
-      text: 'Films, ads and live content shot and produced end-to-end, from concept to final output.',
+      // design: mission
+      text: 'From planning and styling to shooting, retouching and delivery: every aspect of the production process, handled for you.',
     },
     {
       title: 'Every channel',
@@ -44,5 +80,12 @@ export const about = {
       // source: AI Video & Film description
       text: 'We combine AI, CGI, and production expertise to create visually compelling content at scale.',
     },
+    {
+      title: 'On-model to packshot',
+      // design
+      text: 'From on-model images and videos to packshots, we deliver high-quality visuals that make your products stand out.',
+    },
   ],
+
+  partners: { eyebrow: 'Brands we work with' },
 };

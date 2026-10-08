@@ -1,66 +1,62 @@
 import ContinueExploring from '@/components/ui/ContinueExploring';
 import Hero from '@/components/home/Hero';
-import IntroBand from '@/components/home/IntroBand';
-import StudioBand from '@/components/home/StudioBand';
-import ServicesPreview from '@/components/home/ServicesPreview';
-import WorkMosaic from '@/components/home/WorkMosaic';
-import ApproachBand from '@/components/home/ApproachBand';
-import HomeCta from '@/components/home/HomeCta';
+import StatsBar from '@/components/home/StatsBar';
+import ClientMarquee from '@/components/home/ClientMarquee';
+import Experts from '@/components/home/Experts';
+import CaseStudies from '@/components/home/CaseStudies';
+import PortfolioMosaic from '@/components/home/PortfolioMosaic';
+import Results from '@/components/home/Results';
+import Testimonials from '@/components/home/Testimonials';
+import ProcessSteps from '@/components/home/ProcessSteps';
+import HomeContact from '@/components/home/HomeContact';
 import { home } from '@/data/home';
-import { getPillars } from '@/lib/services';
+import { site } from '@/data/site';
 
 export const metadata = {
   title: { absolute: 'MAEVEN Productions' },
-  description:
-    'Content & Production, Smart Tech, and Creative & Brand services from MAEVEN Productions.',
+  description: home.hero.text,
   alternates: { canonical: '/' },
 };
 
 /**
- * Home introduces the studio and leads to Services or Contact. The Services page owns the full
- * catalogue, so the pillars appear on Home exactly once (ServicesPreview).
- *
- *   Hero (image, video-ready) .......... headline, one line, two CTAs
- *   Intro .............. ink ........... positioning statement
- *   Studio ............. surface ....... how the studio works (image + text)
- *   Services preview ... paper ......... the three pillars, once
- *   Production ......... ink ........... image mosaic
- *   How we work ........ surface ....... generic four-step workflow
- *   CTA ................ ink
- *   Continue exploring . surface
- *   Footer
+ * Home follows GoPackshot's section order, in MAEVEN's design:
+ *   video hero + trusted by · stats bar · brands strip · what we do (3 blocks) · case studies ·
+ *   portfolio · results · testimonials · how we work (5 steps) · contact · continue exploring.
+ * All content lives in data/home.js; placeholders are marked ph('...').
  */
 export default function HomePage() {
   return (
     <>
       <Hero hero={home.hero} />
-      <IntroBand intro={home.intro} tone="ink" />
-      <StudioBand studio={home.studio} tone="surface" />
-      <ServicesPreview pillars={getPillars()} show={home.servicesPreview.topics} tone="paper" />
-      <WorkMosaic items={home.work.items} tone="ink" />
-      <ApproachBand steps={home.approach} tone="surface" />
-      <HomeCta tone="ink" />
+      <StatsBar stats={home.stats} />
+      <ClientMarquee eyebrow={home.partners.eyebrow} />
+      <Experts experts={home.experts} tone="ink" />
+      <CaseStudies cases={home.cases} />
+      <PortfolioMosaic portfolio={home.portfolio} />
+      <Results results={home.results} tone="surface" />
+      <Testimonials testimonials={home.testimonials} />
+      <ProcessSteps process={home.process} tone="ink" />
+      <HomeContact data={home.contact} tone="surface" />
       <ContinueExploring
-        tone="surface"
-        variant="editorial"
+        tone="ink"
         items={[
           {
             title: 'Services',
-            text: 'The three pillars and everything within them.',
+            text: 'Content & Production, Smart Tech, and Creative & Brand.',
             href: '/services',
             cta: 'View services',
           },
           {
             title: 'About',
-            text: 'Who MAEVEN is and how we work.',
+            text: `Who ${site.shortName} is and how we work.`,
             href: '/about',
-            cta: 'About MAEVEN',
+            cta: 'About us',
           },
           {
             title: 'Contact',
-            text: 'Send an inquiry to the team.',
+            text: 'Tell us about your project.',
             href: '/contact',
-            cta: 'Contact us',
+            cta: 'Get in touch',
           },
         ]}
       />

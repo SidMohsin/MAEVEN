@@ -58,7 +58,9 @@ export default function MediaImage({
               alt={asset.alt}
               fill
               sizes={sizes}
-              priority={priority}
+              // priority="eager": high-priority eager load without a preload hint
+              priority={priority === true}
+              {...(priority === 'eager' ? { loading: 'eager', fetchPriority: 'high' } : {})}
               style={asset.focus ? { objectPosition: asset.focus } : undefined}
               className={`object-cover ${position} transition-transform duration-[1200ms] ease-[var(--ease-expo)] [@media(hover:hover)]:group-hover/media:scale-[1.05]`}
             />

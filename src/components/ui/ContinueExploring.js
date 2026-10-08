@@ -4,80 +4,41 @@ import Icon from '@/components/ui/Icon';
 import SplitText from '@/components/ui/SplitText';
 
 /**
- * "Continue exploring". `items`: { title, text, href, cta }.
- *  - default    : a centred row of 2 or 3 cards (used on Services).
- *  - "editorial": large heading on the left, big typographic link rows on the right (used on Home).
+ * "Continue exploring" (GoPackshot's end-of-page cards): centred heading and 2-3 cards, each with
+ * an icon, title, one line and a link. `items`: { title, text, href, cta, icon }.
+ * Default icons per destination when `icon` is omitted.
  */
-export default function ContinueExploring({ items, tone = 'surface', variant = 'cards' }) {
-  if (variant === 'editorial') {
-    return (
-      <Section tone={tone} className="md:!py-32">
-        <div className="grid gap-12 md:grid-cols-12 md:gap-14">
-          <div className="md:col-span-4">
-            <span aria-hidden="true" data-reveal="draw" className="bg-olive mb-8 block h-px w-16" />
-            <SplitText as="h2" className="text-5xl md:text-7xl">
-              Continue exploring
-            </SplitText>
-          </div>
+const ICONS = { '/services': 'camera', '/about': 'studio', '/contact': 'chat' };
 
-          <ul
-            data-reveal="stagger"
-            style={{ '--d': '200ms' }}
-            className="border-line border-t md:col-span-8"
-          >
-            {items.map((item) => (
-              <li key={item.href} className="border-line border-b">
-                <Link
-                  href={item.href}
-                  className="group hover:bg-surface-2/60 -mx-3 grid grid-cols-[1fr_auto] items-center gap-x-6 px-3 py-8 transition-colors duration-300 md:py-11"
-                >
-                  <span>
-                    <span className="font-heading group-hover:text-olive-hi block text-4xl text-white transition-all duration-500 ease-[var(--ease-expo)] group-hover:translate-x-2 md:text-6xl">
-                      {item.title}
-                    </span>
-                    <span className="text-muted mt-3 block max-w-md text-sm leading-relaxed">
-                      {item.text}
-                    </span>
-                  </span>
-                  <span className="text-olive-hi flex items-center gap-3 text-sm font-medium">
-                    <span className="hidden md:inline">{item.cta}</span>
-                    <Icon
-                      name="arrow"
-                      className="size-7 transition-transform duration-500 ease-[var(--ease-expo)] group-hover:translate-x-2"
-                    />
-                  </span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </Section>
-    );
-  }
-
+export default function ContinueExploring({ items, tone = 'surface' }) {
   return (
-    <Section tone={tone}>
-      <h2 data-reveal="up" className="text-center text-3xl md:text-4xl">
-        Continue exploring
-      </h2>
+    <Section tone={tone} className="md:!py-28">
+      <SplitText as="h2" className="text-center text-4xl md:text-5xl">
+        Continue exploring MAEVEN
+      </SplitText>
       <ul
-        className={`mx-auto mt-10 grid gap-4 ${
+        data-reveal="stagger"
+        style={{ '--d': '150ms' }}
+        className={`mx-auto mt-12 grid gap-5 ${
           items.length > 2 ? 'max-w-5xl md:grid-cols-3' : 'max-w-3xl md:grid-cols-2'
         }`}
       >
-        {items.map((item, i) => (
-          <li key={item.href} data-reveal="up" style={{ '--d': `${120 + i * 90}ms` }}>
+        {items.map((item) => (
+          <li key={item.href}>
             <Link
               href={item.href}
-              className="lift group border-line bg-surface-2 hover:border-olive-hi flex h-full flex-col border p-8"
+              className="lift group border-line bg-surface-2/60 flex h-full flex-col items-center border px-7 py-10 text-center hover:border-[var(--color-olive-hi)]"
             >
-              <h3 className="text-2xl">{item.title}</h3>
-              <p className="text-muted mt-3 flex-1 text-sm">{item.text}</p>
-              <span className="text-olive-hi mt-6 inline-flex items-center gap-2 text-sm font-medium">
+              <span className="border-line text-olive-hi group-hover:border-olive-hi flex size-12 items-center justify-center rounded-full border transition-colors duration-500">
+                <Icon name={item.icon ?? ICONS[item.href] ?? 'arrow'} className="size-5" />
+              </span>
+              <h3 className="mt-6 text-2xl">{item.title}</h3>
+              <p className="text-muted mt-3 max-w-xs flex-1 text-sm leading-relaxed">{item.text}</p>
+              <span className="mt-7 inline-flex items-center gap-2 text-sm font-medium text-white">
                 {item.cta}
                 <Icon
                   name="arrow"
-                  className="size-4 transition-transform duration-200 group-hover:translate-x-1"
+                  className="text-olive-hi size-4 transition-transform duration-500 ease-[var(--ease-expo)] group-hover:translate-x-1"
                 />
               </span>
             </Link>
