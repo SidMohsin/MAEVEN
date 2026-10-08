@@ -47,20 +47,23 @@ export default function ServicesPage() {
       {/* GoPackshot-style top: label, title, one line; the category tabs follow directly below. */}
       <Section atmos={3} className="!pt-20 !pb-14 text-center md:!pt-32 md:!pb-20">
         <div className="rise flex justify-center">
-          <Eyebrow>What we do</Eyebrow>
+          <Eyebrow>Services</Eyebrow>
         </div>
+        {/* client wording (material request, Services · introduction) */}
         <h1
-          className="rise mt-6 text-6xl leading-[0.95] md:text-8xl lg:text-[8.5rem]"
+          className="rise mx-auto mt-6 max-w-4xl text-[2.6rem] leading-[1.05] md:text-6xl lg:text-7xl"
           style={{ '--d': '90ms' }}
         >
-          Services
+          One studio for content, technology and{' '}
+          <span className="text-olive-hi">brand creativity.</span>
         </h1>
         <p
-          className="rise text-paper/75 mx-auto mt-7 max-w-xl text-lg leading-relaxed"
+          className="rise text-paper/75 mx-auto mt-7 max-w-2xl text-lg leading-relaxed"
           style={{ '--d': '200ms' }}
         >
-          Content &amp; Production, Smart Tech, and Creative &amp; Brand: from the shoot itself to
-          the technology and the brand around it.
+          From precise packshots and model shoots to campaign photography, film and digital content,
+          we manage production from concept to final delivery, bringing creative direction, studio
+          expertise and post-production together under one roof.
         </p>
       </Section>
 

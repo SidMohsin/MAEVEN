@@ -44,7 +44,8 @@ for (const id of [...about.images, about.quote.image].filter(Boolean)) {
   if (homeImages.has(id)) errors.push(`About: ${id} is also used on Home`);
 }
 const slugs = new Set();
-const EXPECTED = { 'content-production': 5, 'smart-tech': 8, 'creative-brand': 5 };
+// Client removed Creator & IP Studio, Assets & Niches and Insourcing (Oct 2026).
+const EXPECTED = { 'content-production': 5, 'smart-tech': 6, 'creative-brand': 4 };
 
 for (const p of pillars) {
   if (EXPECTED[p.slug] !== p.topics.length) {
@@ -128,7 +129,7 @@ for (const c of clients) {
 }
 
 if (pillars.length !== 3) errors.push(`Expected 3 pillars, found ${pillars.length}`);
-if (slugs.size !== 18) errors.push(`Expected 18 topics, found ${slugs.size}`);
+if (slugs.size !== 15) errors.push(`Expected 15 topics, found ${slugs.size}`);
 
 if (errors.length) {
   console.error('Service data validation failed:\n - ' + errors.join('\n - '));

@@ -33,8 +33,8 @@ export const SERVICE_BLOCKS = [
     pillar: 'smart-tech',
     // source: AI Video & Film description
     title: 'AI-powered production, from concept to final output.',
-    // draft (summarises the four topics; no factual claim)
-    text: 'AI films and ads, AI-generated content, product and marketplace videos, and corporate and learning video.',
+    // draft (summarises the six topics; no factual claim)
+    text: 'AI films and ads, AI-generated content, product and learning video, virtual stores and photoreal 3D.',
     image: 'shadow-portrait',
     label: 'In the studio',
     topics: [
@@ -42,42 +42,31 @@ export const SERVICE_BLOCKS = [
       'ai-content-creation',
       'product-retail-video',
       'enterprise-learning-video',
+      'ar-vr-immersive',
+      '3d-visualization',
     ],
     media: {
       'ai-video-film': 'bts-tethered',
       'ai-content-creation': 'bts-portrait-bw',
       'product-retail-video': { video: 'product-retail-video' },
       'enterprise-learning-video': 'bts-casting',
-    },
-  },
-  {
-    pillar: 'smart-tech',
-    title: 'Immersive, 3D and creator content.', // draft
-    // draft (summarises the four topics; no factual claim)
-    text: 'Virtual try-on and showrooms, photoreal 3D, virtual hosts and content libraries for digital-first brands.',
-    image: 'ball-pose',
-    label: 'Studio shoot',
-    topics: ['ar-vr-immersive', '3d-visualization', 'creator-ip-studio', 'assets-niches'],
-    media: {
-      'ar-vr-immersive': 'rain-square',
-      '3d-visualization': 'packshot-quilted-tote',
-      'creator-ip-studio': 'bts-makeup',
-      'assets-niches': 'lifestyle-brick-close',
+      // client renders (AR_3D folder): virtual store walkthrough, 3D bag turntable
+      'ar-vr-immersive': { video: 'ar-vr-immersive' },
+      '3d-visualization': { video: '3d-visualization' },
     },
   },
   {
     pillar: 'creative-brand',
-    // source: Branding summary
-    title: 'Brands that are instantly recognisable.',
+    // client sheet (Creative & Brand); the block text is the pillar intro (data/services.js)
+    title: 'Creative that makes brands recognisable.',
     image: 'neon-modny-close',
     label: 'Campaign shoot',
-    topics: ['branding', 'design', 'content', 'campaign-strategy', 'insourcing'],
+    topics: ['branding', 'design', 'content', 'campaign-strategy'],
     media: {
       branding: 'tfc-lace',
       design: 'packshot-print-back',
       content: 'bts-wardrobe',
       'campaign-strategy': 'neon-street-walk',
-      insourcing: 'bts-team',
     },
   },
 ];

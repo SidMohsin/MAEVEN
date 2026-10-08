@@ -149,10 +149,6 @@ STUDIO_PICKS = [
      'Black and white portrait of a blonde model in a white top', 'Still frame from the behind-the-scenes reel.'),
     ('bts-casting', 'Videos', 'Sequence 02_1.MP4@0.9', 'topic', 'enterprise-learning-video',
      'Model in a cream turtleneck talking during a casting', 'Still frame from the behind-the-scenes sequence.'),
-    ('bts-makeup', 'Videos', '1.mov@5.5', 'topic', 'creator-ip-studio',
-     'Model doing her make-up at a mirror lined with bulbs', 'Still frame from the behind-the-scenes reel.'),
-    ('bts-team', 'Videos', 'Sequence 02_1.MP4@12.95', 'topic', 'insourcing',
-     'Stylist and model talking on a white studio set', 'Still frame from the behind-the-scenes sequence.'),
     ('packshot-print-back', TEST, 'offwhite back.jpg', 'topic', 'design',
      'Back of a black sweatshirt with a white script print', 'Packshot.'),
 ]

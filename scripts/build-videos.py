@@ -45,6 +45,14 @@ SERVICE_VIDEOS = [
 ]
 LOOP_FADE = 0.6
 
+# Smart Tech renders supplied by the client (AR_3D folder): whole clip, looped with a crossfade.
+# fit 'crop' fills the 4:5 frame (centre, away from the corner badge); 'pad' keeps the object
+# whole on its own background colour.
+SERVICE_RENDERS = [
+    ('ar-vr-immersive', 'AR_3D/3D visuals.mp4', 'crop', None),   # virtual store walkthrough
+    ('3d-visualization', 'AR_3D/Bag.mp4', 'pad', '0xC8D5DF'),    # 3D bag turntable
+]
+
 
 def service_video(slug, f, first, last, drop, out_dir):
     out = out_dir / f'{slug}.mp4'
@@ -62,9 +70,29 @@ def service_video(slug, f, first, last, drop, out_dir):
     return out
 
 
+def service_render(slug, f, fit, color, out_dir):
+    out = out_dir / f'{slug}.mp4'
+    d = float(subprocess.run(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0',
+                              str(RAW / f)], capture_output=True, text=True).stdout)
+    x = LOOP_FADE
+    size = ('scale=720:900:force_original_aspect_ratio=increase,crop=720:900' if fit == 'crop' else
+            f'scale=720:900:force_original_aspect_ratio=decrease,pad=720:900:(ow-iw)/2:(oh-ih)/2:color={color}')
+    chain = (f'[0:v]{size},fps=30,format=yuv420p,setsar=1,split[a][b];'
+             f'[b]trim=0:{x},setpts=PTS-STARTPTS[head];'
+             f'[a]trim={x}:{d:.3f},setpts=PTS-STARTPTS[body];'
+             f'[body][head]xfade=transition=fade:duration={x}:offset={d - 2 * x:.3f}[v]')
+    run(['-i', str(RAW / f), '-filter_complex', chain, '-map', '[v]', '-an', '-map_metadata', '-1',
+         '-c:v', 'libx264', '-preset', 'slow', '-crf', '24', '-movflags', '+faststart', str(out)])
+    return out
+
+
 def build_service_videos():
     out_dir = OUT / 'services'
     out_dir.mkdir(parents=True, exist_ok=True)
+    for c in SERVICE_RENDERS:
+        out = service_render(*c, out_dir)
+        poster(out, out_dir / f'{c[0]}-poster.jpg')
+        print('services/' + out.name, round(out.stat().st_size / 1e3), 'KB')
     for c in SERVICE_VIDEOS:
         out = service_video(*c, out_dir)
         poster(out, out_dir / f'{c[0]}-poster.jpg')

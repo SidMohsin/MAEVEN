@@ -304,47 +304,6 @@ export const pillars = [
         detailPage: false,
         image: null,
       },
-      {
-        slug: 'creator-ip-studio',
-        name: 'Creator & IP Studio',
-        summary: 'Reusable characters, virtual hosts and automated channels.',
-        description: 'Reusable characters, virtual hosts and automated channels.',
-        groups: [
-          {
-            items: items(
-              'Creator-led production',
-              'Character continuity & reusability',
-              'Virtual hosts / trainers / presenters',
-              'YouTube channel automation',
-              'Podcast-to-video conversion',
-              'Brand mascots & owned IP',
-              'Animation',
-              'Motion graphics',
-            ),
-          },
-        ],
-        detailPage: false,
-        image: null,
-      },
-      {
-        slug: 'assets-niches',
-        name: 'Assets & Niches',
-        summary: 'Stock libraries, licensing and emerging-format content.',
-        description: 'Stock libraries, licensing and emerging-format content.',
-        groups: [
-          {
-            items: items(
-              'Fashion shows & virtual lookbooks',
-              'Stock footage & libraries',
-              'Scene / shot / asset licensing',
-              'Political & awareness campaigns',
-              'Sports & esports content',
-            ),
-          },
-        ],
-        detailPage: false,
-        image: null,
-      },
     ],
   },
   {
@@ -354,14 +313,14 @@ export const pillars = [
     name: 'Creative & Brand',
     // draft (summarises the topics below; no factual claim). Client to confirm.
     intro:
-      'Brand identity, design, content and campaign strategy that make brands instantly recognisable.',
+      'Brand identity, design, content and campaign direction that make brands recognisable and memorable.',
     banner: null,
     topics: [
       {
         slug: 'branding',
         name: 'Branding',
-        summary: 'Identity systems that make brands instantly recognisable.',
-        description: 'Identity systems that make brands instantly recognisable.',
+        summary: 'Distinctive identity systems built to last.',
+        description: 'Distinctive identity systems built to last.',
         groups: [
           {
             items: items(
@@ -397,29 +356,20 @@ export const pillars = [
       {
         slug: 'content',
         name: 'Content',
-        summary: 'Words and strategy that carry the brand voice.',
-        description: 'Words and strategy that carry the brand voice.',
+        summary: 'Brand stories, words and visual content that build a consistent voice.',
+        description: 'Brand stories, words and visual content that build a consistent voice.',
         groups: [{ items: items('Copywriting', 'Content strategy', 'Blog & editorial') }],
         detailPage: false,
         image: null,
       },
       {
         slug: 'campaign-strategy',
-        name: 'Campaign & Strategy',
-        summary: 'Big ideas and creative direction for 360° campaigns.',
-        description: 'Big ideas and creative direction for 360° campaigns.',
+        name: 'Campaigns',
+        summary: 'Big ideas and creative direction that bring the brand to life.',
+        description: 'Big ideas and creative direction that bring the brand to life.',
         groups: [
           { items: items('Campaign ideation', 'Creative mandate & briefs', 'Concept creation') },
         ],
-        detailPage: false,
-        image: null,
-      },
-      {
-        slug: 'insourcing',
-        name: 'Insourcing',
-        summary: 'Embedded creative teams that scale with your brand.',
-        description: 'Embedded creative teams that scale with your brand.',
-        groups: [{ items: items('Embedded creative teams', 'Dedicated brand studio') }],
         detailPage: false,
         image: null,
       },
