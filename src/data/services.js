@@ -71,7 +71,7 @@ export const pillars = [
           'neon-library',
           'lifestyle-brick-full',
           'studio-portrait-pose',
-          'rain-editorial',
+          'neon-modny-pair',
           'pair-light-set',
           'night-street-hero',
           'packshot-dress',

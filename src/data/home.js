@@ -84,11 +84,11 @@ export const home = {
     tiles: [
       { image: 'neon-pink-street', label: 'Lifestyle & Campaign' },
       { image: 'studio-portrait-hood', label: 'On-Model Photography' },
-      { image: 'packshot-vest', label: 'Packshot Photography' },
-      { image: 'neon-cafe', label: 'Editorial' },
-      { image: 'tfc-detail', label: 'Detail shots' },
+      { image: 'wa-packshot', label: 'Packshot Photography' },
+      { image: 'wa-editorial', label: 'Editorial' },
+      { image: 'wa-detail', label: 'Detail shots' },
       { image: 'bts-camera', label: 'Video & Film' },
-      { image: 'tfc-brief', label: 'E-Com Production' },
+      { image: 'wa-ecom', label: 'E-Com Production' },
     ],
   },
 

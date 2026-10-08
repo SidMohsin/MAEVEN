@@ -149,6 +149,15 @@ STUDIO_PICKS = [
      'Black and white portrait of a blonde model in a white top', 'Still frame from the behind-the-scenes reel.'),
     ('bts-casting', 'Videos', 'Sequence 02_1.MP4@0.9', 'topic', 'enterprise-learning-video',
      'Model in a cream turtleneck talking during a casting', 'Still frame from the behind-the-scenes sequence.'),
+    # "WEBSITE ASSETS" folder (supplied for the website, named by use).
+    ('wa-detail', 'WEBSITE ASSETS', 'DETAIL.jpg', 'detail', 'home',
+     'Close-up of a khaki shirt pocket with a dark button', 'Detail shot.'),
+    ('wa-ecom', 'WEBSITE ASSETS', 'ECOM.jpg', 'topic', 'home',
+     'Model in a navy hoodie and joggers with a light blue print on a light studio backdrop', 'E-commerce, on-model.'),
+    ('wa-packshot', 'WEBSITE ASSETS', 'PACKSHOT.jpg', 'topic', 'home',
+     'Beige double-breasted short coat photographed on a light background', 'Packshot.'),
+    ('wa-editorial', 'WEBSITE ASSETS', 'EDITORIAL.jpg', 'topic', 'home',
+     'Model in a dark technical jacket in a dark set with falling white particles', 'Editorial.'),
     ('packshot-print-back', TEST, 'offwhite back.jpg', 'topic', 'design',
      'Back of a black sweatshirt with a white script print', 'Packshot.'),
 ]
@@ -162,6 +171,7 @@ FOCUS = {
     'neon-pink-street': '50% 55%',
     'neon-montaz': '50% 55%',
     'onmodel-floral': '50% 18%',
+    'wa-ecom': '50% 12%',
 }
 
 
