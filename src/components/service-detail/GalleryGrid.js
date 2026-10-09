@@ -7,6 +7,7 @@ import { getAsset } from '@/data/assets';
  * Supporting imagery for a topic, every image at its own proportions (no cropping at any size).
  * Portrait/square images form justified rows (four per row on desktop, two on phones); wide
  * images get a row to themselves. Renders nothing when there is no gallery.
+ * No text overlays: photos stand on their own (alt text stays for screen readers).
  */
 export default function GalleryGrid({ ids = [], topicName, tone }) {
   if (ids.length === 0) return null;
@@ -26,7 +27,6 @@ export default function GalleryGrid({ ids = [], topicName, tone }) {
       <JustifiedRows
         className="mt-10"
         need={`${topicName} image`}
-        caption={(id) => ({ label: topicName, text: getAsset(id)?.alt })}
         rows={[...chunk(tall, 4), ...wide.map((id) => [id])]}
         mobileRows={[...chunk(tall, 2), ...wide.map((id) => [id])]}
       />
