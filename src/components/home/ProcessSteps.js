@@ -10,10 +10,12 @@ export default function ProcessSteps({ process, tone }) {
   return (
     <Section tone={tone} className="md:!py-32">
       <div className="mx-auto max-w-3xl text-center">
-        <div data-reveal="up" className="flex justify-center">
-          <Eyebrow>{process.eyebrow}</Eyebrow>
-        </div>
-        <SplitText as="h2" className="mt-6 text-4xl md:text-6xl">
+        {process.eyebrow && (
+          <div data-reveal="up" className="flex justify-center">
+            <Eyebrow>{process.eyebrow}</Eyebrow>
+          </div>
+        )}
+        <SplitText as="h2" className={`${process.eyebrow ? 'mt-6' : ''} text-4xl md:text-6xl`}>
           {process.title}
         </SplitText>
         <p data-reveal="up" style={{ '--d': '250ms' }} className="text-muted mt-6 text-lg">

@@ -23,17 +23,28 @@ function parse(value) {
     : null;
 }
 
+const calm = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/**
+ * The real value is rendered on the server and stays for reduced motion (no "0+" in the HTML).
+ * With motion allowed, it resets to 0 after hydration and counts up once the bar is in view.
+ */
 function CountUp({ value, start }) {
   const p = parse(value);
-  const [shown, setShown] = useState(p ? 0 : null);
+  const [shown, setShown] = useState(p ? p.n : null);
   useEffect(() => {
-    if (!p || !start) return undefined;
-    // Reduced motion: jump straight to the final value (first frame, duration 0).
-    const duration = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 1600;
+    if (!p || calm()) return undefined;
+    const raf = requestAnimationFrame(() => setShown(0));
+    return () => cancelAnimationFrame(raf);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  useEffect(() => {
+    if (!p || !start || calm()) return undefined;
+    const duration = 1600;
     let raf;
     const t0 = performance.now();
     const tick = (t) => {
-      const k = duration ? Math.min(1, (t - t0) / duration) : 1;
+      const k = Math.min(1, (t - t0) / duration);
       setShown(p.n * (1 - Math.pow(1 - k, 3)));
       if (k < 1) raf = requestAnimationFrame(tick);
     };
@@ -65,13 +76,23 @@ export default function StatsBar({ stats, tone }) {
       aria-label="MAEVEN in numbers"
       className={tone === 'olive' ? 'tone-olive' : 'border-line bg-surface border-y'}
     >
-      <dl className="container-page grid grid-cols-2 md:grid-cols-4">
+      <dl
+        className={`container-page grid ${
+          stats.length === 3 ? 'grid-cols-1 sm:grid-cols-3' : 'grid-cols-2 md:grid-cols-4'
+        }`}
+      >
         {stats.map((s, i) => (
           <div
             key={s.label}
             className={`border-line flex flex-col-reverse items-center py-7 text-center md:py-10 ${
-              i % 2 ? 'border-l' : ''
-            } ${i > 0 ? 'md:border-l' : ''} ${i > 1 ? 'border-t md:border-t-0' : ''}`}
+              stats.length === 3
+                ? i > 0
+                  ? 'border-t sm:border-t-0 sm:border-l'
+                  : ''
+                : `${i % 2 ? 'border-l' : ''} ${i > 0 ? 'md:border-l' : ''} ${
+                    i > 1 ? 'border-t md:border-t-0' : ''
+                  }`
+            }`}
           >
             <dt className="text-muted mt-2 text-xs tracking-[0.16em] uppercase">{s.label}</dt>
             <dd className="font-heading text-4xl text-white tabular-nums md:text-5xl">

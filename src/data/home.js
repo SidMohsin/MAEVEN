@@ -25,11 +25,11 @@ export const home = {
   },
 
   stats: [
-    { value: ph('00+'), label: 'Brands served' },
-    { value: ph('000+'), label: 'Shoots delivered' },
+    { value: '50+', label: 'Brands served' }, // client
+    { value: '200+', label: 'Shoots delivered' }, // client
     // client: "With over 10 years of experience in e-commerce photography" (About)
     { value: '10+', label: 'Years of experience' },
-    { value: ph('00K+'), label: 'Images delivered' },
+    { value: '200K+', label: 'Images delivered' }, // client
   ],
 
   partners: { eyebrow: 'Brands we work with' },
@@ -37,7 +37,7 @@ export const home = {
   experts: {
     eyebrow: 'What we do',
     // client (material request, Home · what we do)
-    title: 'From Concept · Through Production · To Final Frame',
+    title: 'From Concept to Production to Final Frame',
     text: 'Photography, film and digital content crafted for websites, social media, advertising, and every brand touchpoint.',
     blocks: [
       {
@@ -94,10 +94,10 @@ export const home = {
 
   // The six steps are taken verbatim from thestudiox.pl, as the client asked.
   process: {
-    // heading and line: MAEVEN's own (client chose these over the studiox wording)
-    eyebrow: 'How we work',
-    title: 'From brief to delivery in six clear steps.',
-    text: 'Every project follows the same path, scoped to what you need.',
+    // client (Shristi): heading, line, and no small label above
+    eyebrow: null,
+    title: 'From Studio to Screen — And Beyond',
+    text: 'We turn ideas into visual content through a considered, end-to-end process from creative development and pre-production to shooting, post-production and Smart Tech AI. One team, one workflow, every frame thoughtfully made.',
     steps: [
       {
         title: 'Consultation',

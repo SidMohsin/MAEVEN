@@ -1,5 +1,3 @@
-import { ph } from '../lib/content.js';
-
 /**
  * About page content (client wording, Oct 2026), in GoPackshot's About order:
  *   hero · images · numbers · who we are · founder note · what sets us apart · brands.
@@ -23,8 +21,7 @@ export const about = {
   stats: [
     // client: "With over 10 years of experience in e-commerce photography"
     { value: '10+', label: 'Years of experience' },
-    { value: ph('00'), label: 'People in the team' },
-    { value: ph('00+'), label: 'Brands served' },
+    { value: '50+', label: 'Brands served' }, // client
     // design: the artboards place the studio in Wrocław
     { value: 'Wrocław', label: 'Studio, Poland' },
   ],

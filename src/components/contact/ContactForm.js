@@ -1,6 +1,5 @@
 'use client';
 
-import Link from 'next/link';
 import { useActionState, useEffect, useRef } from 'react';
 import { sendInquiry } from '@/app/contact/actions';
 import Icon from '@/components/ui/Icon';
@@ -185,15 +184,8 @@ export default function ContactForm({ pillars }) {
             {...aria('consent')}
           />
           <span className="text-paper/75 text-sm leading-relaxed">
-            I agree to MAEVEN Productions contacting me about this inquiry and processing my details
-            as described in the{' '}
-            <Link
-              href="/privacy"
-              className="text-paper underline underline-offset-4 hover:text-white"
-            >
-              privacy policy
-            </Link>
-            .
+            I agree to MAEVEN Productions contacting me about this inquiry and storing my details
+            for that purpose.
           </span>
         </label>
         {errors.consent && (

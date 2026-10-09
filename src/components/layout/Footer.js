@@ -93,11 +93,6 @@ export default function Footer() {
                 )}
               </li>
             ))}
-            <li>
-              <Link href="/privacy" className="hover:text-olive-hi transition-colors duration-200">
-                Privacy
-              </Link>
-            </li>
           </ul>
         </div>
       </div>

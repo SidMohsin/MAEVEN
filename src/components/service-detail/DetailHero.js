@@ -28,7 +28,7 @@ export default function DetailHero({ topic, pillar, crumbs }) {
           as="h1"
           play
           delay={160}
-          className="mt-6 text-5xl [overflow-wrap:anywhere] md:text-8xl lg:text-[8rem] lg:leading-[0.95]"
+          className="mt-6 max-w-5xl text-[2.6rem] leading-[1.05] [overflow-wrap:anywhere] md:text-6xl lg:text-[5.25rem] lg:leading-[1.02]"
         >
           {topic.name}
         </SplitText>
