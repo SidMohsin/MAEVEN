@@ -22,7 +22,7 @@ export const SERVICE_BLOCKS = [
     label: 'On-model photography',
     topics: ['photography', 'video-film', 'e-com-production', 'post-production', 'audio'],
     media: {
-      photography: 'studio-portrait-tee',
+      photography: 'onmodel-purple-tee',
       'video-film': { video: 'video-film' },
       'e-com-production': 'packshot-jeans',
       'post-production': 'bts-retouch-laptop',

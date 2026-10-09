@@ -96,7 +96,10 @@ export default function ServicesPage() {
         </div>
         <p data-reveal="up" style={{ '--d': '350ms' }} className="text-muted mt-6 text-sm">
           Or call / WhatsApp:{' '}
-          <a href={contact.phoneHref} className="hover:text-olive-hi text-white transition-colors">
+          <a
+            href={contact.phoneHref}
+            className="hover:text-olive-hi text-white underline decoration-[var(--color-olive-hi)] underline-offset-4 transition-colors"
+          >
             {contact.phone}
           </a>
         </p>

@@ -76,6 +76,14 @@ PICKS = [
      'Close-up of a leather bag interior with a brass zip', 'Hi-res detail shot.'),
     ('detail-knit-collar', PS, '2026.03.04_WAD_1415.jpg', 'detail', 'e-com-production',
      'Close-up of a black knit collar with small buttons and a woven label', '1600x2400.'),
+    ('onmodel-purple-tee', CO, 'Copy of 2025.11.25_WTN__e-com12693.jpg', 'topic', 'photography',
+     'Model in a purple T-shirt and dark jeans on a grey studio backdrop', 'On-model, e-commerce.'),
+    ('onmodel-pink-hoodie', CO, 'Copy of 2025.11.25_WTN__e-com12600.jpg', 'topic', 'photography',
+     'Model in a pink hoodie, sunglasses and dark jeans on a grey studio backdrop', 'On-model, e-commerce.'),
+    ('onmodel-black-tee', CO, 'Copy of Copy of 2025.06.24_withthenew21380.jpg', 'topic', 'photography',
+     'Model in a black T-shirt and shorts with one hand behind his head on a light backdrop', 'On-model, e-commerce.'),
+    ('onmodel-pair-black', CO, 'Copy of 2025.12.23_WTN_e-com15432 kopia.jpg', 'topic', 'home',
+     'Two models in black sweatshirts and trousers posing together on a grey studio backdrop', 'On-model, studio. Home "What we do".'),
     ('onmodel-floral', CO, 'Copy of 2026.03.23_WTN_model_packshot2114.jpg', 'topic', 'home',
      'Model with glasses in a black hoodie and joggers with a white floral print, on a grey studio backdrop', 'On-model, studio. Home "What we do".'),
 ]
@@ -128,10 +136,6 @@ STUDIO_PICKS = [
      'Model in a white T-shirt and blue jeans sitting on a chrome chair in the studio', 'On-model, studio.'),
     ('studio-portrait-tee', TEST, '2022-03-08 14.20.50.jpg', 'topic', 'photography',
      'Studio portrait of a model in a white T-shirt looking to the side', 'On-model, studio.'),
-    ('lifestyle-brick-close', KAMIL, 'Z70_0236.JPG', 'topic', 'photography',
-     'Man in a dark jacket with sunglasses on his head in front of a brick wall with graffiti', 'Lifestyle.'),
-    ('lifestyle-brick-full', KAMIL, 'Z70_0232.JPG', 'topic', 'photography',
-     'Man in a dark jacket standing in the doorway of a red brick building', 'Lifestyle.'),
     ('post-retouch-screen', 'footage', 'DSC_6063.MOV@1.0', 'topic', 'post-production',
      'Laptop screen showing a fashion photo being retouched', 'Still frame from behind-the-scenes footage.'),
     # Behind-the-scenes stills for the Services page (frames checked: sharp, no Studio X mark;
@@ -142,6 +146,8 @@ STUDIO_PICKS = [
      'Model in a grey hoodie in profile, looking down, in soft window light', 'Still frame from the behind-the-scenes reel.'),
     # Services page: photo shown when a service card is pointed at / swiped to (closest real material).
     # "WEBSITE ASSETS" folder (supplied for the website, named by use).
+    ('ai-model-portrait', 'WEBSITE ASSETS', 'AI CONTENT CREATIOPN.mp4@11.3', 'topic', 'home',
+     'AI-generated model with short brown hair in a cream knit sweater, looking over her shoulder', 'Still from the supplied AI content video (outside the part used on Services).'),
     ('wa-detail', 'WEBSITE ASSETS', 'DETAIL.jpg', 'detail', 'home',
      'Close-up of a khaki shirt pocket with a dark button', 'Detail shot.'),
     ('wa-ecom', 'WEBSITE ASSETS', 'ECOM.jpg', 'topic', 'home',
@@ -173,6 +179,8 @@ FOCUS = {
     'neon-pink-street': '50% 55%',
     'neon-montaz': '50% 55%',
     'onmodel-floral': '50% 18%',
+    'onmodel-pair-black': '50% 15%',
+    'ai-model-portrait': '50% 20%',
     'wa-ecom': '50% 12%',
 }
 

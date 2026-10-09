@@ -18,7 +18,7 @@ export default function Hero({ hero }) {
           as="h1"
           play
           delay={120}
-          className="max-w-6xl text-[2.6rem] leading-[1.06] min-[420px]:text-[3rem] md:text-7xl lg:text-[5.5rem] lg:leading-[1.04]"
+          className="max-w-6xl text-[2.25rem] leading-[1.08] min-[420px]:text-[2.6rem] md:text-6xl lg:text-[4.6rem] lg:leading-[1.06]"
         >
           {line1} <span className="text-olive-hi">{line2}</span>
         </SplitText>

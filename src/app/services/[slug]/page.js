@@ -2,7 +2,6 @@ import { notFound } from 'next/navigation';
 import CtaBand from '@/components/ui/CtaBand';
 import DetailHero from '@/components/service-detail/DetailHero';
 import Overview from '@/components/service-detail/Overview';
-import CapabilityList from '@/components/service-detail/CapabilityList';
 import GalleryGrid from '@/components/service-detail/GalleryGrid';
 import ProcessSteps from '@/components/service-detail/ProcessSteps';
 import RelatedTopics from '@/components/service-detail/RelatedTopics';
@@ -47,7 +46,6 @@ export default async function ServiceDetailPage({ params }) {
   // Alternate band tones down the page (hero is ink), counting only the sections that render.
   const order = [
     'overview',
-    'capabilities',
     gallery.length > 0 && 'gallery',
     hasProcess && 'process',
     related.length > 0 && 'related',
@@ -93,7 +91,6 @@ export default async function ServiceDetailPage({ params }) {
     <>
       <DetailHero topic={topic} pillar={pillar} crumbs={crumbs} />
       <Overview topic={topic} tone={toneOf('overview')} />
-      <CapabilityList topic={topic} tone={toneOf('capabilities')} />
       {gallery.length > 0 && (
         <GalleryGrid ids={gallery} topicName={topic.name} tone={toneOf('gallery')} />
       )}
@@ -102,8 +99,8 @@ export default async function ServiceDetailPage({ params }) {
         <RelatedTopics pillar={pillar} topics={related} tone={toneOf('related')} />
       )}
       <CtaBand
-        title={`Talk to us about ${topic.name}`}
-        text="Start with a conversation about what you need."
+        title="Planning your next shoot?"
+        text="Tell us about your products and we’ll plan the packshots and model shoots with you."
         href="/contact"
         label="Get in touch"
         secondary={{ href: '/services', label: 'All services' }}

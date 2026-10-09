@@ -5,11 +5,11 @@
 export default function Eyebrow({ children, className = '', light = false }) {
   return (
     <p
-      className={`flex items-center gap-3 text-xs font-medium tracking-[0.22em] uppercase ${
+      className={`flex items-center gap-3 text-[0.9rem] font-semibold tracking-[0.2em] uppercase md:text-[1.05rem] ${
         light ? 'text-paper' : 'text-olive-hi'
       } ${className}`}
     >
-      <span aria-hidden="true" className={`h-px w-8 ${light ? 'bg-paper/70' : 'bg-olive'}`} />
+      <span aria-hidden="true" className={`h-px w-10 ${light ? 'bg-paper/70' : 'bg-olive'}`} />
       {children}
     </p>
   );

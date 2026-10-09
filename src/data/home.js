@@ -41,7 +41,7 @@ export const home = {
     text: 'Photography, film and digital content crafted for websites, social media, advertising, and every brand touchpoint.',
     blocks: [
       {
-        image: 'onmodel-floral',
+        image: 'onmodel-pair-black',
         badge: 'On-model · Packshot · Video',
         // client (material request, block 1)
         title: 'From packshots and on-model to videos.',
@@ -65,8 +65,8 @@ export const home = {
         ],
       },
       {
-        image: 'post-retouch-screen',
-        badge: 'Post-production', // what the photo shows (retouching on screen)
+        image: 'ai-model-portrait',
+        badge: 'Smart Tech AI', // still from the supplied AI content video
         // client (material request, block 3)
         title: 'Production expertise, powered by Smart Tech and CGI.',
         text: 'We combine the craft of production with the possibilities of Smart Tech AI, CGI and digital technology to create new ways for brands to tell their stories.',
@@ -92,11 +92,12 @@ export const home = {
     ],
   },
 
-  // Steps and wording taken verbatim from thestudiox.pl ("Our simple process"), as the client asked.
+  // The six steps are taken verbatim from thestudiox.pl, as the client asked.
   process: {
-    eyebrow: 'Process',
-    title: 'Our simple process',
-    text: 'A simple, structured workflow from concept to final delivery. Built for fast, consistent e-commerce production.',
+    // heading and line: MAEVEN's own (client chose these over the studiox wording)
+    eyebrow: 'How we work',
+    title: 'From brief to delivery in six clear steps.',
+    text: 'Every project follows the same path, scoped to what you need.',
     steps: [
       {
         title: 'Consultation',

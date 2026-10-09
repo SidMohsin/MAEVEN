@@ -86,7 +86,7 @@ export default function PortfolioMosaic({ portfolio }) {
             href="/services/photography"
             className="group text-olive-hi inline-flex items-center gap-2 text-sm font-medium transition-colors duration-300 hover:text-white"
           >
-            View our photography
+            Explore Packshot &amp; Model Shoots
             <Icon
               name="arrow"
               className="size-4 transition-transform duration-500 ease-[var(--ease-expo)] group-hover:translate-x-1"

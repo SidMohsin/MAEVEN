@@ -48,7 +48,7 @@ export const pillars = [
     topics: [
       {
         slug: 'photography',
-        name: 'Photography',
+        name: 'Packshot & Model Shoots', // client rename (was "Photography")
         summary: 'Editorial, product and brand photography for every channel.',
         description:
           'Creative editorial, product, and brand photography crafted for websites, social media, advertising, and every brand touchpoint. High-performing visuals designed to drive conversions across marketplaces and your online store.',
@@ -69,15 +69,15 @@ export const pillars = [
         hero: 'brick-wall-banner',
         gallery: [
           'neon-library',
-          'lifestyle-brick-full',
+          'onmodel-pink-hoodie',
           'studio-portrait-pose',
           'neon-modny-pair',
           'pair-light-set',
           'night-street-hero',
           'packshot-dress',
-          'detail-knit-collar',
-          'packshot-shirt',
-          'packshot-knit-polo',
+          'studio-seated-denim',
+          'ball-pose',
+          'onmodel-black-tee',
         ],
       },
       {

@@ -1,4 +1,4 @@
-import { Inter, Jost } from 'next/font/google';
+import { Inter, Plus_Jakarta_Sans } from 'next/font/google';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import RevealObserver from '@/components/ui/RevealObserver';
@@ -6,7 +6,13 @@ import ScrollManager from '@/components/layout/ScrollManager';
 import { site } from '@/data/site';
 import './globals.css';
 
-const jost = Jost({ subsets: ['latin'], variable: '--font-jost', display: 'swap' });
+// Headings: Plus Jakarta Sans (client asked for a bolder, more distinctive heading font than Jost).
+const heading = Plus_Jakarta_Sans({
+  subsets: ['latin', 'latin-ext'],
+  weight: ['500', '600', '700'],
+  variable: '--font-display',
+  display: 'swap',
+});
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
 
 export const metadata = {
@@ -34,7 +40,7 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${jost.variable} ${inter.variable}`}
+      className={`${heading.variable} ${inter.variable}`}
       data-scroll-behavior="smooth"
       suppressHydrationWarning
     >
